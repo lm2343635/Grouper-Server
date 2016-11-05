@@ -17,11 +17,6 @@ public class MainController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/text")
-    public String index() {
-        return "text.jsp";
-    }
-
     @RequestMapping("/json")
     @ResponseBody
     public List<String> json(){
