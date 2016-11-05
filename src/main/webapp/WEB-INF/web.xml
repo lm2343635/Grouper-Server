@@ -24,7 +24,7 @@
 
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>/META-INF/applicationContext.xml,/META-INF/infrastructure.xml</param-value>
+    <param-value>/META-INF/applicationContext.xml,/META-INF/daoContext.xml</param-value>
   </context-param>
 
   <listener>

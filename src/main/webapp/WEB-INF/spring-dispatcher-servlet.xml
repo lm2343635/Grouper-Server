@@ -21,7 +21,7 @@
         <property name="maxUploadSize" value="2000000"/>
     </bean>
 
-    <mvc:resources mapping="/static/**" location="/"/>
+    <mvc:resources mapping="/static/**" location="/static/"/>
 
     <mvc:default-servlet-handler />
 
