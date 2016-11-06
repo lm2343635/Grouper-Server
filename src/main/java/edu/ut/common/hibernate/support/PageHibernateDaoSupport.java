@@ -29,7 +29,9 @@ public abstract class PageHibernateDaoSupport<T extends Serializable> extends Hi
     }
 
     public String save(T entity) {
-        return (String)getHibernateTemplate().save(entity);
+        String id = (String)getHibernateTemplate().save(entity);
+        getHibernateTemplate().flush();
+        return id;
     }
 
     public void update(T entity) {

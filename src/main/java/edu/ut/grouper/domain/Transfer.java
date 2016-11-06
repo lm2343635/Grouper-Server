@@ -11,8 +11,8 @@ import java.util.Date;
 public class Transfer implements Serializable {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
     private String tid;
     @Column(nullable = false)
     private String sid;

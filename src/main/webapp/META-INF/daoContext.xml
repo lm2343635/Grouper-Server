@@ -32,7 +32,6 @@
                 <prop key="hibernate.dialect">${hibernate.dialect}</prop>
                 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
                 <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-                <prop key="hibernate.connection.autocommit">true</prop>
             </props>
         </property>
     </bean>
@@ -40,21 +39,6 @@
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
-
-    <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">-->
-        <!--<tx:attributes>-->
-            <!--<tx:method name="get*" propagation="SUPPORTS" read-only="true" />-->
-            <!--<tx:method name="count*" propagation="SUPPORTS" read-only="true" />-->
-            <!--<tx:method name="find*" propagation="SUPPORTS" read-only="true" />-->
-            <!--<tx:method name="list*" propagation="SUPPORTS" read-only="true" />-->
-            <!--<tx:method name="*" read-only="false" propagation="REQUIRED" />-->
-        <!--</tx:attributes>-->
-    <!--</tx:advice>-->
-
-    <!--<aop:config>-->
-        <!--<aop:pointcut id="bussinessService" expression="execution(* edu.ut.grouper.service..*.*(..))"/>-->
-        <!--<aop:advisor pointcut-ref="bussinessService" advice-ref="txAdvice"/>-->
-    <!--</aop:config>-->
 
     <tx:annotation-driven transaction-manager="transactionManager" />
 
