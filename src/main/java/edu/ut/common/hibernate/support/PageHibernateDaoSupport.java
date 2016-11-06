@@ -1,16 +1,22 @@
 package edu.ut.common.hibernate.support;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.Session;
+import org.hibernate.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.List;
 
 public abstract class PageHibernateDaoSupport<T extends Serializable> extends HibernateDaoSupport implements CrudDao<T> {
+
+    @Autowired
+    public void init(SessionFactory sessionFactory) {
+        setSessionFactory(sessionFactory);
+    }
 
     private Class<T> clazz;
 

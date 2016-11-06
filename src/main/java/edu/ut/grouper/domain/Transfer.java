@@ -2,9 +2,7 @@ package edu.ut.grouper.domain;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,11 +11,18 @@ import java.util.Date;
 public class Transfer implements Serializable {
 
     @Id
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     private String tid;
+    @Column(nullable = false)
     private String sid;
+    @Column(nullable = false)
     private String content;
+    @Column(nullable = false)
+    private String object;
+    @Column(nullable = false)
     private Integer count;
+    @Column(nullable = false)
     private Date savetime;
 
     public String getTid() {
@@ -34,6 +39,14 @@ public class Transfer implements Serializable {
 
     public void setSid(String sid) {
         this.sid = sid;
+    }
+
+    public String getObject() {
+        return object;
+    }
+
+    public void setObject(String object) {
+        this.object = object;
     }
 
     public Integer getCount() {
