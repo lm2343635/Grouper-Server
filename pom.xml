@@ -95,6 +95,12 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.6.11</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.directwebremoting</groupId>
+            <artifactId>dwr</artifactId>
+            <version>3.0.1-RELEASE</version>
+        </dependency>
     </dependencies>
 
 </project>

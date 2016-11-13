@@ -2,16 +2,35 @@
     <head>
         <title>Grouper</title>
         <link rel="stylesheet" href="static/css/semantic.min.css">
+        <link rel="stylesheet" href="static/css/index.css">
         <script src="static/js/jquery.min.js"></script>
         <script src="static/js/semantic.min.js"></script>
     </head>
     <body>
         <div class="ui container">
-            <br>
-            <h2 class="ui center aligned icon header">
+            <h2 id="grouper-logo" class="ui center aligned icon header">
                 <i class="circular users icon"></i>
                 <span>Grouper, with untrusted servers.</span>
             </h2>
+            <div class="ui two column middle aligned very relaxed stackable grid">
+                <div id="register-form" class="ui form">
+                    <div class="field">
+                        <label>Group Id</label>
+                        <div class="ui left icon input">
+                            <input type="text" placeholder="Group Id is same in all servers.">
+                            <i class="info icon"></i>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Group Name</label>
+                        <div class="ui left icon input">
+                            <input type="text" placeholder="Group name shown in app.">
+                            <i class="users icon"></i>
+                        </div>
+                    </div>
+                    <div class="ui green fluid button">Register A New Group</div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
