@@ -20,7 +20,10 @@ public class Group implements Serializable {
     @Column(nullable = false)
     private Integer members;
     @Column(nullable = false)
-    private String key;
+    private String masterkey;
+    @ManyToOne
+    @JoinColumn(name = "owner", unique = true)
+    private User owner;
 
     public String getGid() {
         return gid;
@@ -54,11 +57,19 @@ public class Group implements Serializable {
         this.members = members;
     }
 
-    public String getKey() {
-        return key;
+    public String getMasterkey() {
+        return masterkey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setMasterkey(String masterkey) {
+        this.masterkey = masterkey;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }

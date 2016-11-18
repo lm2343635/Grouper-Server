@@ -20,7 +20,6 @@ public class TransferManagerImpl extends ManagerTemplate implements TransferMana
         transfer.setSavetime(new Date());
         transfer.setCount(0);
         String tid = transferDao.save(transfer);
-        System.out.print(tid);
         return 0;
     }
 

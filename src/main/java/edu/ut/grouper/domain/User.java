@@ -18,6 +18,8 @@ public class User implements Serializable {
     private String email;
     private String gender;
     private String pictureurl;
+    @Column(nullable = false)
+    private String accesskey;
     @ManyToOne
     @JoinColumn(name = "gid")
     private Group group;
@@ -60,6 +62,14 @@ public class User implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getAccesskey() {
+        return accesskey;
+    }
+
+    public void setAccesskey(String accesskey) {
+        this.accesskey = accesskey;
     }
 
     public String getPictureurl() {
