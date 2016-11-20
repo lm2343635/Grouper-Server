@@ -23,4 +23,13 @@ public class GroupDaoHibernate extends PageHibernateDaoSupport<Group> implements
         }
         return groups.get(0);
     }
+
+    public Group getByGroupId(String id) {
+        String hql = "from Group where id = ?";
+        List<Group> groups = (List<Group>)getHibernateTemplate().find(hql, id);
+        if (groups.size() == 0) {
+            return null;
+        }
+        return groups.get(0);
+    }
 }

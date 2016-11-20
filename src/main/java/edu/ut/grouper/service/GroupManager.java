@@ -5,6 +5,13 @@ import edu.ut.grouper.domain.Group;
 public interface GroupManager {
 
     /**
+     * Is group id exist in database.
+     * @param id
+     * @return
+     */
+    boolean isGroupExist(String id);
+
+    /**
      * Register a new group in this server.
      * @param id Group Id
      * @param name Group Name

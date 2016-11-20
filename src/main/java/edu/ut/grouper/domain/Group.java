@@ -9,18 +9,27 @@ import java.util.Date;
 @Entity
 @Table(name = "grouper")
 public class Group implements Serializable {
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String gid;
+
     @Column(nullable = false)
     private String id;
+
     @Column(nullable = false)
     private String gname;
+
     @Column(nullable = false)
     private Integer members;
+
     @Column(nullable = false)
     private String masterkey;
+
+    @Column(nullable = false)
+    private Date createDate;
+
     @ManyToOne
     @JoinColumn(name = "owner", unique = true)
     private User owner;
@@ -63,6 +72,14 @@ public class Group implements Serializable {
 
     public void setMasterkey(String masterkey) {
         this.masterkey = masterkey;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public User getOwner() {

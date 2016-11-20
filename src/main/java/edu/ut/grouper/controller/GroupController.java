@@ -1,5 +1,6 @@
 package edu.ut.grouper.controller;
 
+import edu.ut.common.util.ResponseTool;
 import edu.ut.grouper.service.GroupManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,16 +22,16 @@ public class GroupController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity registerGroup(@RequestParam String id, @RequestParam String name) {
-        String masterKey = groupManager.registerGroup(id, name);
-        Map<String, Object> data = new HashMap();
-        if (masterKey != null) {
-            data.put("masterKey", masterKey);
-            return new ResponseEntity(data, HttpStatus.OK);
-        } else {
-            data.put("errCode", 1001);
-            data.put("errMsg", "Register group error.");
-            return new ResponseEntity(data, HttpStatus.BAD_REQUEST);
+        if (groupManager.isGroupExist(id)) {
+            return ResponseTool.generateResponseEntity(null, HttpStatus.BAD_REQUEST, 1001, "Group id is exist in this server.");
         }
+        final String masterkey = groupManager.registerGroup(id, name);
+        if (masterkey == null) {
+            return ResponseTool.generateResponseEntity(null, HttpStatus.BAD_REQUEST, 1002, "Register group error.");
+        }
+        return ResponseTool.generateResponseEntity(new HashMap<String, Object>(){{
+            put("masterkey", masterkey);
+        }}, HttpStatus.OK);
     }
 
 }
