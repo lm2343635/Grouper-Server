@@ -25,4 +25,8 @@ public class GroupManagerImpl extends ManagerTemplate implements GroupManager {
         }
         return null;
     }
+
+    public Group authByMasterkey(String masterkey) {
+        return groupDao.getByMasterkey(masterkey);
+    }
 }

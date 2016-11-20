@@ -5,4 +5,10 @@ import edu.ut.grouper.domain.Group;
 
 public interface GroupDao extends CrudDao<Group> {
 
+    /**
+     * Get a group by master key
+     * @param masterkey
+     * @return
+     */
+    Group getByMasterkey(String masterkey);
 }

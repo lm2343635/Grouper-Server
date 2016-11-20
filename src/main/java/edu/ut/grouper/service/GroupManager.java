@@ -1,5 +1,7 @@
 package edu.ut.grouper.service;
 
+import edu.ut.grouper.domain.Group;
+
 public interface GroupManager {
 
     /**
@@ -9,4 +11,11 @@ public interface GroupManager {
      * @return
      */
     String registerGroup(String id, String name);
+
+    /**
+     * Find a group by its master key
+     * @param masterkey
+     * @return
+     */
+    Group authByMasterkey(String masterkey);
 }

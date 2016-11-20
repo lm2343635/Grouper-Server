@@ -13,7 +13,7 @@ public interface UserManager {
      * @param pictureUrl
      * @param group
      * @param owner
-     * @return
+     * @return The access key of this user for this group
      */
     String addUser(String uid, String name, String email, String gender, String pictureUrl, Group group, boolean owner);
 }
