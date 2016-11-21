@@ -10,9 +10,9 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - param: 
       - id(String): group id
       - name(String): group name
-   - return:
+   - return:
       - masterkey(String): master key for group creator
-   - error:
+   - error:
       - ErrorGroupExsit(1001): Group id is exist in this server
       - ErrorGroupRegister(1002): Register group error
       
@@ -31,9 +31,9 @@ This is the REST API document of Grouper Web service, which is a group finance m
       - gender(String)
       - pictureUrl(String): the picture url of user's avatar
       - owner(boolean): this user is group owner or not
-   - return:
+   - return:
       - accesskey(String): access key for this new user
-   - error:
+   -  error:
       - ErrorMasterKey(2001): Master key is wrong
       - ErrorAddUser(2002): Add user internel error
       
@@ -46,5 +46,5 @@ This is the REST API document of Grouper Web service, which is a group finance m
       - sid(String): physical id in client
       - content(String): a share
       - object(String): class name of a object
-   - return:
+   -  return:
       - count(int): sync times in this server
