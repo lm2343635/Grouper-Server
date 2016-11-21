@@ -30,8 +30,9 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
             }
             if (owner) {
                 group.setOwner(user);
-                groupDao.update(group);
             }
+            group.setMembers(group.getMembers() + 1);
+            groupDao.update(group);
         } else {
             user.setUid(uid);
             user.setName(name);
