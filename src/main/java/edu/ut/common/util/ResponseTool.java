@@ -8,8 +8,12 @@ import java.util.Map;
 
 public class ResponseTool {
 
-    public static ResponseEntity generateResponseEntity(Map<String, Object> result, HttpStatus status) {
-        return generateResponseEntity(result, status, null, null);
+    public static ResponseEntity generateOK(Map<String, Object> result) {
+        return generateResponseEntity(result, HttpStatus.OK, null, null);
+    }
+
+    public static ResponseEntity generateBadRequest(int errorCode, String errorMessage) {
+        return generateResponseEntity(null, HttpStatus.BAD_REQUEST, errorCode, errorMessage);
     }
 
     public static ResponseEntity generateResponseEntity(Map<String, Object> result, HttpStatus status, Integer errCode, String errMsg) {

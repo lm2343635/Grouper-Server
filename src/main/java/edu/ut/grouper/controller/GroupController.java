@@ -23,15 +23,15 @@ public class GroupController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity registerGroup(@RequestParam String id, @RequestParam String name) {
         if (groupManager.isGroupExist(id)) {
-            return ResponseTool.generateResponseEntity(null, HttpStatus.BAD_REQUEST, 1001, "Group id is exist in this server.");
+            return ResponseTool.generateBadRequest(1001, "Group id is exist in this server.");
         }
         final String masterkey = groupManager.registerGroup(id, name);
         if (masterkey == null) {
-            return ResponseTool.generateResponseEntity(null, HttpStatus.BAD_REQUEST, 1002, "Register group error.");
+            return ResponseTool.generateBadRequest(1002, "Register group error.");
         }
-        return ResponseTool.generateResponseEntity(new HashMap<String, Object>(){{
+        return ResponseTool.generateOK(new HashMap<String, Object>(){{
             put("masterkey", masterkey);
-        }}, HttpStatus.OK);
+        }});
     }
 
 }

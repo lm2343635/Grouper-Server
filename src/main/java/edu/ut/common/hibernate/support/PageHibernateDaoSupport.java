@@ -36,6 +36,7 @@ public abstract class PageHibernateDaoSupport<T extends Serializable> extends Hi
 
     public void update(T entity) {
         getHibernateTemplate().update(entity);
+        getHibernateTemplate().flush();
     }
 
     public void delete(T entity) {

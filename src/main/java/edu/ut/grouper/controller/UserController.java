@@ -1,5 +1,6 @@
 package edu.ut.grouper.controller;
 
+import edu.ut.common.util.ResponseTool;
 import edu.ut.grouper.domain.Group;
 import edu.ut.grouper.service.GroupManager;
 import edu.ut.grouper.service.UserManager;
@@ -30,19 +31,15 @@ public class UserController {
                                   HttpServletRequest request) {
         String key = request.getHeader("key");
         Group group = groupManager.authByMasterkey(key);
-        Map<String, Object> data = new HashMap<String, Object>();
         if (group == null) {
-            data.put("errCode", 2001);
-            data.put("errMsg", "Master key is wrong.");
-            return new ResponseEntity(data, HttpStatus.BAD_REQUEST);
+            return ResponseTool.generateBadRequest(2001, "Master key is wrong.");
         }
-        String accesskey = userManager.addUser(uid, name, email, gender, pictureUrl, group, owner);
+        final String accesskey = userManager.addUser(uid, name, email, gender, pictureUrl, group, owner);
         if (accesskey == null) {
-            data.put("errCode", 2002);
-            data.put("errMsg", "Add user internel error.");
-            return new ResponseEntity(data, HttpStatus.BAD_REQUEST);
+            return ResponseTool.generateBadRequest(2002, "Add user internel error.");
         }
-        data.put("accessKey", accesskey);
-        return new ResponseEntity(data, HttpStatus.OK);
+        return ResponseTool.generateOK(new HashMap<String, Object>(){{
+            put("accesskey", accesskey);
+        }});
     }
 }

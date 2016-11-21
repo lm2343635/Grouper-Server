@@ -5,7 +5,7 @@ import edu.ut.grouper.domain.Group;
 public interface UserManager {
 
     /**
-     * Add a user in a group
+     * Add a user in a group, if this user is exist, update his user info.
      * @param uid
      * @param name
      * @param email
