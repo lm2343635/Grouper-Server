@@ -36,6 +36,17 @@ This is the REST API document of Grouper Web service, which is a group finance m
    -  error:
       - ErrorMasterKey(2001): Master key is wrong
       - ErrorAddUser(2002): Add user internel error
+
+(2)`user/list`
+
+   - Get user list of a group.
+   - method: GET
+   - header:
+      - key(String): access key of a member
+   - return:
+      - users(List): user list of this group
+   -  error:
+      - ErrorAccessKey(2003): Access key is wrong
       
 3. Transfer
 ====
