@@ -1,5 +1,6 @@
 package edu.ut.grouper.controller;
 
+import edu.ut.bean.UserBean;
 import edu.ut.common.util.ResponseTool;
 import edu.ut.grouper.domain.Group;
 import edu.ut.grouper.domain.User;
@@ -47,14 +48,10 @@ public class UserController {
         }});
     }
 
-    @ResponseBody
     @RequestMapping(value = "/group_list", method = RequestMethod.GET)
     public ResponseEntity getGroupList(HttpServletRequest request) {
         String key = request.getHeader("key");
-        final List<User> users = userManager.getGroupListByAccesskey(key);
-        for (User user: users) {
-            System.out.println(user.getName());
-        }
+        final List<UserBean> users = userManager.getGroupListByAccesskey(key);
         if (users == null) {
             return ResponseTool.generateBadRequest(2003, "Access key is wrong.");
         }

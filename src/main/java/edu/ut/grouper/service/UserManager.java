@@ -1,7 +1,7 @@
 package edu.ut.grouper.service;
 
+import edu.ut.bean.UserBean;
 import edu.ut.grouper.domain.Group;
-import edu.ut.grouper.domain.User;
 
 import java.util.List;
 
@@ -25,5 +25,5 @@ public interface UserManager {
      * @param accesskey
      * @return
      */
-    List<User> getGroupListByAccesskey(String accesskey);
+    List<UserBean> getGroupListByAccesskey(String accesskey);
 }

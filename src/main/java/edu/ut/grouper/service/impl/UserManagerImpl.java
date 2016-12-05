@@ -1,11 +1,13 @@
 package edu.ut.grouper.service.impl;
 
+import edu.ut.bean.UserBean;
 import edu.ut.grouper.domain.Group;
 import edu.ut.grouper.domain.User;
 import edu.ut.grouper.service.UserManager;
 import edu.ut.grouper.service.util.ManagerTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,12 +47,15 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         return user.getAccesskey();
     }
 
-    public List<User> getGroupListByAccesskey(String accesskey) {
-        User user = userDao.getByAccesskey(accesskey);
-        System.out.println(user.getName());
-        if (user == null) {
+    public List<UserBean> getGroupListByAccesskey(String accesskey) {
+        User member = userDao.getByAccesskey(accesskey);
+        if (member == null) {
             return null;
         }
-        return userDao.findByGroup(user.getGroup());
+        List<UserBean> users = new ArrayList<UserBean>();
+        for (User user: userDao.findByGroup(member.getGroup())) {
+            users.add(new UserBean(user));
+        }
+        return users;
     }
 }
