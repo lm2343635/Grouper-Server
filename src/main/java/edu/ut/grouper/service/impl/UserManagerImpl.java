@@ -6,6 +6,7 @@ import edu.ut.grouper.service.UserManager;
 import edu.ut.grouper.service.util.ManagerTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service("userManager")
@@ -42,5 +43,14 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
             userDao.update(user);
         }
         return user.getAccesskey();
+    }
+
+    public List<User> getGroupListByAccesskey(String accesskey) {
+        User user = userDao.getByAccesskey(accesskey);
+        System.out.println(user.getName());
+        if (user == null) {
+            return null;
+        }
+        return userDao.findByGroup(user.getGroup());
     }
 }

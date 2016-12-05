@@ -24,4 +24,18 @@ public class UserDaoHibernate extends PageHibernateDaoSupport<User> implements U
         }
         return users.get(0);
     }
+
+    public User getByAccesskey(String accesskey) {
+        String hql = "from User where accesskey = ?";
+        List<User> users = (List<User>)getHibernateTemplate().find(hql, accesskey);
+        if (users.size() == 0) {
+            return null;
+        }
+        return users.get(0);
+    }
+
+    public List<User> findByGroup(Group group) {
+        String hql = "from User where group = ?";
+        return (List<User>) getHibernateTemplate().find(hql, group);
+    }
 }

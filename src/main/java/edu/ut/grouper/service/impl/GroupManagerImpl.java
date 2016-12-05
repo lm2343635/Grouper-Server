@@ -33,4 +33,5 @@ public class GroupManagerImpl extends ManagerTemplate implements GroupManager {
     public Group authByMasterkey(String masterkey) {
         return groupDao.getByMasterkey(masterkey);
     }
+
 }

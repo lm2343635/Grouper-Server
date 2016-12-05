@@ -2,6 +2,7 @@ package edu.ut.grouper.controller;
 
 import edu.ut.common.util.ResponseTool;
 import edu.ut.grouper.domain.Group;
+import edu.ut.grouper.domain.User;
 import edu.ut.grouper.service.GroupManager;
 import edu.ut.grouper.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -40,6 +44,22 @@ public class UserController {
         }
         return ResponseTool.generateOK(new HashMap<String, Object>(){{
             put("accesskey", accesskey);
+        }});
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/group_list", method = RequestMethod.GET)
+    public ResponseEntity getGroupList(HttpServletRequest request) {
+        String key = request.getHeader("key");
+        final List<User> users = userManager.getGroupListByAccesskey(key);
+        for (User user: users) {
+            System.out.println(user.getName());
+        }
+        if (users == null) {
+            return ResponseTool.generateBadRequest(2003, "Access key is wrong.");
+        }
+        return ResponseTool.generateOK(new HashMap<String, Object>(){{
+            put("users", users);
         }});
     }
 }
