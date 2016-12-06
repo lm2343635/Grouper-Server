@@ -31,6 +31,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
          - oid(String): user id from facebook of group owner
    - error:
       - ErrorKeyWrong(1003): Cannot get group info, master key or access key is wrong.    
+
 2. User
 ====
 (1)`user/add`
