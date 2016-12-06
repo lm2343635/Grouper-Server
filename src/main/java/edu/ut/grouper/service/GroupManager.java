@@ -1,5 +1,6 @@
 package edu.ut.grouper.service;
 
+import edu.ut.grouper.bean.GroupBean;
 import edu.ut.grouper.domain.Group;
 
 public interface GroupManager {
@@ -24,5 +25,12 @@ public interface GroupManager {
      * @param masterkey
      * @return
      */
-    Group authByMasterkey(String masterkey);
+    GroupBean authByMasterkey(String masterkey);
+
+    /**
+     * Find a group by its master key
+     * @param key
+     * @return
+     */
+    GroupBean authByKey(String key);
 }

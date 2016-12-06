@@ -1,7 +1,6 @@
 package edu.ut.grouper.service;
 
-import edu.ut.bean.UserBean;
-import edu.ut.grouper.domain.Group;
+import edu.ut.grouper.bean.UserBean;
 
 import java.util.List;
 
@@ -14,11 +13,11 @@ public interface UserManager {
      * @param email
      * @param gender
      * @param pictureUrl
-     * @param group
+     * @param gid
      * @param owner
      * @return The access key of this user for this group
      */
-    String addUser(String uid, String name, String email, String gender, String pictureUrl, Group group, boolean owner);
+    String addUser(String uid, String name, String email, String gender, String pictureUrl, String gid, boolean owner);
 
     /**
      *

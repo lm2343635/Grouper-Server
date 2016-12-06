@@ -1,4 +1,4 @@
-# Grouper's API Document in Untrusted Servers
+# Grouper's API Document
 This is the REST API document of Grouper Web service, which is a group finance manager application using multiple untrusted servers.
 
 1. Group
@@ -15,7 +15,22 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - error:
       - ErrorGroupExsit(1001): Group id is exist in this server
       - ErrorGroupRegister(1002): Register group error
-      
+
+(2)`group/info`
+   
+   - Get group information.
+   - method: GET
+   - header:
+      - key(String): master key of this group or access key of group member
+   - return:
+      - group(Object): group information
+         - id(String): group id
+         - name(String): group name
+         - members(int): number of group members
+         - createDate(long)
+         - oid(String): user id from facebook of group owner
+   - error:
+      - ErrorKeyWrong(1003): Cannot get group info, master key or access key is wrong.    
 2. User
 ====
 (1)`user/add`
@@ -45,6 +60,12 @@ This is the REST API document of Grouper Web service, which is a group finance m
       - key(String): access key of a member
    - return:
       - users(List): user list of this group
+         - id(String): user id from facebook
+         - name(String)
+         - email(String)
+         - gender(String)
+         - url(String): the picture url of user's avatar
+         - gid(String): group id of this user's group
    -  error:
       - ErrorAccessKey(2003): Access key is wrong
       

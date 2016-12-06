@@ -1,17 +1,17 @@
 package edu.ut.grouper.controller;
 
 import edu.ut.common.util.ResponseTool;
+import edu.ut.grouper.bean.GroupBean;
 import edu.ut.grouper.service.GroupManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/group")
@@ -34,4 +34,15 @@ public class GroupController {
         }});
     }
 
+    @RequestMapping(value = "info", method = RequestMethod.GET)
+    public ResponseEntity getGroupInformation(HttpServletRequest request) {
+        String key = request.getHeader("key");
+        final GroupBean group = groupManager.authByKey(key);
+        if (group == null) {
+            return ResponseTool.generateBadRequest(1003, "Cannot get group info, master key or access key is wrong.");
+        }
+        return ResponseTool.generateOK(new HashMap<String, Object>(){{
+            put("group", group);
+        }});
+    }
 }

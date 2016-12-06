@@ -1,22 +1,22 @@
-package edu.ut.bean;
+package edu.ut.grouper.bean;
 
 import edu.ut.grouper.domain.User;
 
 public class UserBean {
 
-    private String uid;
+    private String id;
     private String name;
     private String email;
     private String gender;
-    private String pictureurl;
+    private String url;
     private String gid;
 
-    public String getUid() {
-        return uid;
+    public String getId() {
+        return id;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -43,12 +43,12 @@ public class UserBean {
         this.gender = gender;
     }
 
-    public String getPictureurl() {
-        return pictureurl;
+    public String getUrl() {
+        return url;
     }
 
-    public void setPictureurl(String pictureurl) {
-        this.pictureurl = pictureurl;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getGid() {
@@ -60,11 +60,11 @@ public class UserBean {
     }
 
     public UserBean(User user) {
-        this.uid = user.getUid();
+        this.id = user.getUid();
         this.name = user.getName();
         this.email = user.getEmail();
         this.gender = user.getGender();
-        this.pictureurl = user.getPictureurl();
+        this.url = user.getPictureurl();
         this.gid = user.getGroup().getGid();
     }
 }

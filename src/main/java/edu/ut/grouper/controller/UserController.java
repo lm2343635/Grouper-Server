@@ -1,6 +1,7 @@
 package edu.ut.grouper.controller;
 
-import edu.ut.bean.UserBean;
+import edu.ut.grouper.bean.GroupBean;
+import edu.ut.grouper.bean.UserBean;
 import edu.ut.common.util.ResponseTool;
 import edu.ut.grouper.domain.Group;
 import edu.ut.grouper.service.GroupManager;
@@ -30,11 +31,11 @@ public class UserController {
                                   @RequestParam String gender, @RequestParam String pictureUrl, @RequestParam boolean owner,
                                   HttpServletRequest request) {
         String key = request.getHeader("key");
-        Group group = groupManager.authByMasterkey(key);
+        GroupBean group = groupManager.authByMasterkey(key);
         if (group == null) {
             return ResponseTool.generateBadRequest(2001, "Master key is wrong.");
         }
-        final String accesskey = userManager.addUser(uid, name, email, gender, pictureUrl, group, owner);
+        final String accesskey = userManager.addUser(uid, name, email, gender, pictureUrl, group.getId(), owner);
         if (accesskey == null) {
             return ResponseTool.generateBadRequest(2002, "Add user internel error.");
         }

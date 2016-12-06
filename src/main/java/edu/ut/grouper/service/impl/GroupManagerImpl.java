@@ -1,10 +1,10 @@
 package edu.ut.grouper.service.impl;
 
+import edu.ut.grouper.bean.GroupBean;
 import edu.ut.grouper.domain.Group;
+import edu.ut.grouper.domain.User;
 import edu.ut.grouper.service.GroupManager;
 import edu.ut.grouper.service.util.ManagerTemplate;
-import org.directwebremoting.annotations.RemoteMethod;
-import org.directwebremoting.annotations.RemoteProxy;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -30,8 +30,24 @@ public class GroupManagerImpl extends ManagerTemplate implements GroupManager {
         return null;
     }
 
-    public Group authByMasterkey(String masterkey) {
-        return groupDao.getByMasterkey(masterkey);
+    public GroupBean authByMasterkey(String masterkey) {
+        Group group = groupDao.getByMasterkey(masterkey);
+        if (group == null) {
+            return null;
+        }
+        return new GroupBean(group);
+    }
+
+    public GroupBean authByKey(String key) {
+        Group group = groupDao.getByMasterkey(key);
+        if (group != null) {
+            return new GroupBean(group);
+        }
+        User user = userDao.getByAccesskey(key);
+        if (user == null) {
+            return null;
+        }
+        return new GroupBean(user.getGroup());
     }
 
 }

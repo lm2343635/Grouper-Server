@@ -1,6 +1,6 @@
 package edu.ut.grouper.service.impl;
 
-import edu.ut.bean.UserBean;
+import edu.ut.grouper.bean.UserBean;
 import edu.ut.grouper.domain.Group;
 import edu.ut.grouper.domain.User;
 import edu.ut.grouper.service.UserManager;
@@ -14,8 +14,11 @@ import java.util.UUID;
 @Service("userManager")
 public class UserManagerImpl extends ManagerTemplate implements UserManager {
 
-    public String addUser(String uid, String name, String email, String gender, String pictureUrl, Group group, boolean owner) {
-        System.out.println(owner);
+    public String addUser(String uid, String name, String email, String gender, String pictureUrl, String gid, boolean owner) {
+        Group group = groupDao.get(gid);
+        if (group == null) {
+            return null;
+        }
         //Find this user in this group.
         User user = userDao.getByUidInGroup(uid, group);
         //If this user is not found, new it.
