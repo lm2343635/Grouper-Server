@@ -37,7 +37,7 @@ public class UserController {
         }
         final String accesskey = userManager.addUser(uid, name, email, gender, pictureUrl, group.getId(), owner);
         if (accesskey == null) {
-            return ResponseTool.generateBadRequest(2002, "Add user internel error.");
+            return ResponseTool.generateBadRequest(2004, "Add user internel error.");
         }
         return ResponseTool.generateOK(new HashMap<String, Object>(){{
             put("accesskey", accesskey);
@@ -47,9 +47,9 @@ public class UserController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity getGroupList(HttpServletRequest request) {
         String key = request.getHeader("key");
-        final List<UserBean> users = userManager.getGroupListByAccesskey(key);
+        final List<UserBean> users = userManager.getGroupListByKey(key);
         if (users == null) {
-            return ResponseTool.generateBadRequest(2003, "Access key is wrong.");
+            return ResponseTool.generateBadRequest(2003, "Master key or access key is wrong.");
         }
         return ResponseTool.generateOK(new HashMap<String, Object>(){{
             put("users", users);

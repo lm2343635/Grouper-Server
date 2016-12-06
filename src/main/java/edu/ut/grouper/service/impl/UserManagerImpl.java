@@ -15,7 +15,7 @@ import java.util.UUID;
 public class UserManagerImpl extends ManagerTemplate implements UserManager {
 
     public String addUser(String uid, String name, String email, String gender, String pictureUrl, String gid, boolean owner) {
-        Group group = groupDao.get(gid);
+        Group group = groupDao.getByGroupId(gid);
         if (group == null) {
             return null;
         }
@@ -50,13 +50,17 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         return user.getAccesskey();
     }
 
-    public List<UserBean> getGroupListByAccesskey(String accesskey) {
-        User member = userDao.getByAccesskey(accesskey);
-        if (member == null) {
-            return null;
+    public List<UserBean> getGroupListByKey(String key) {
+        Group group = groupDao.getByMasterkey(key);
+        if (group == null) {
+            User member = userDao.getByAccesskey(key);
+            if (member == null) {
+                return null;
+            }
+            group = member.getGroup();
         }
         List<UserBean> users = new ArrayList<UserBean>();
-        for (User user: userDao.findByGroup(member.getGroup())) {
+        for (User user: userDao.findByGroup(group)) {
             users.add(new UserBean(user));
         }
         return users;

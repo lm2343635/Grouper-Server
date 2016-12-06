@@ -20,9 +20,9 @@ public interface UserManager {
     String addUser(String uid, String name, String email, String gender, String pictureUrl, String gid, boolean owner);
 
     /**
-     *
-     * @param accesskey
+     * Get all users' information of a group by master key of this group or access key of group member
+     * @param key
      * @return
      */
-    List<UserBean> getGroupListByAccesskey(String accesskey);
+    List<UserBean> getGroupListByKey(String key);
 }

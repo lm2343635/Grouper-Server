@@ -51,14 +51,14 @@ This is the REST API document of Grouper Web service, which is a group finance m
       - accesskey(String): access key for this new user
    -  error:
       - ErrorMasterKey(2001): Master key is wrong
-      - ErrorAddUser(2002): Add user internel error
+      - ErrorAddUser(2004): Add user internel error
 
 (2)`user/list`
 
-   - Get user list of a group.
+   - Get all users' information of a group.
    - method: GET
    - header:
-      - key(String): access key of a member
+      - key(String): master key of this group or access key of group member
    - return:
       - users(List): user list of this group
          - id(String): user id from facebook
@@ -68,7 +68,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
          - url(String): the picture url of user's avatar
          - gid(String): group id of this user's group
    -  error:
-      - ErrorAccessKey(2003): Access key is wrong
+      - ErrorAccessKey(2003): Master key or access key is wrong
       
 3. Transfer
 ====
