@@ -23,11 +23,11 @@ public class GroupController {
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity registerGroup(@RequestParam String id, @RequestParam String name) {
         if (groupManager.isGroupExist(id)) {
-            return ResponseTool.generateBadRequest(1001, "Group id is exist in this server.");
+            return ResponseTool.generateBadRequest(ErrorCode.ErrorGroupExsit);
         }
         final String masterkey = groupManager.registerGroup(id, name);
         if (masterkey == null) {
-            return ResponseTool.generateBadRequest(1002, "Register group error.");
+            return ResponseTool.generateBadRequest(ErrorCode.ErrorGroupRegister);
         }
         return ResponseTool.generateOK(new HashMap<String, Object>(){{
             put("masterkey", masterkey);
@@ -39,7 +39,7 @@ public class GroupController {
         String key = request.getHeader("key");
         final GroupBean group = groupManager.authByKey(key);
         if (group == null) {
-            return ResponseTool.generateBadRequest(1003, "Cannot get group info, master key or access key is wrong.");
+            return ResponseTool.generateBadRequest(ErrorCode.ErrorKeyWrong);
         }
         return ResponseTool.generateOK(new HashMap<String, Object>(){{
             put("group", group);

@@ -57,6 +57,6 @@ public class GroupBean {
         this.name = group.getGname();
         this.members = group.getMembers();
         this.createDate = group.getCreateDate();
-        this.oid = group.getOwner().getUid();
+        this.oid = (group.getOwner() == null)? null: group.getOwner().getUid();
     }
 }

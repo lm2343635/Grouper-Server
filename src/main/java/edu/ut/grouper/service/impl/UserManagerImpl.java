@@ -29,7 +29,7 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
             user.setEmail(email);
             user.setGender(gender);
             user.setPictureurl(pictureUrl);
-            user.setAccesskey(UUID.randomUUID().toString());
+            user.setAccesskey(owner? group.getMasterkey(): UUID.randomUUID().toString());
             user.setGroup(group);
             if (userDao.save(user) == null) {
                 return null;

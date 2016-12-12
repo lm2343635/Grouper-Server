@@ -33,11 +33,11 @@ public class UserController {
         String key = request.getHeader("key");
         GroupBean group = groupManager.authByMasterkey(key);
         if (group == null) {
-            return ResponseTool.generateBadRequest(2001, "Master key is wrong.");
+            return ResponseTool.generateBadRequest(ErrorCode.ErrorMasterKey);
         }
         final String accesskey = userManager.addUser(uid, name, email, gender, pictureUrl, group.getId(), owner);
         if (accesskey == null) {
-            return ResponseTool.generateBadRequest(2004, "Add user internel error.");
+            return ResponseTool.generateBadRequest(ErrorCode.ErrorAddUser);
         }
         return ResponseTool.generateOK(new HashMap<String, Object>(){{
             put("accesskey", accesskey);
@@ -49,7 +49,7 @@ public class UserController {
         String key = request.getHeader("key");
         final List<UserBean> users = userManager.getGroupListByKey(key);
         if (users == null) {
-            return ResponseTool.generateBadRequest(2003, "Master key or access key is wrong.");
+            return ResponseTool.generateBadRequest(ErrorCode.ErrorKeyWrong);
         }
         return ResponseTool.generateOK(new HashMap<String, Object>(){{
             put("users", users);

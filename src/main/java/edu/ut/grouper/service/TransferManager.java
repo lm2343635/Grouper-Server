@@ -4,12 +4,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface TransferManager {
 
+    public enum PutResult {
+        AccessKeyWrong,
+        NoReceiverFound,
+        InternelError,
+        Success
+    }
+
     /**
-     * Save a share from mobile devices
-     * @param sid
-     * @param content
-     * @param object
+     *
+     * @param accesskey
+     * @param share
+     * @param receiverUid
      * @return
      */
-    int saveShare(String sid, String content, String object);
+    PutResult putShare(String accesskey, String share, String receiverUid);
 }

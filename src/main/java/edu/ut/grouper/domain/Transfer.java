@@ -14,16 +14,20 @@ public class Transfer implements Serializable {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String tid;
+
     @Column(nullable = false)
-    private String sid;
-    @Column(nullable = false)
-    private String content;
-    @Column(nullable = false)
-    private String object;
-    @Column(nullable = false)
-    private Integer count;
+    private String share;
+
     @Column(nullable = false)
     private Date savetime;
+
+    @ManyToOne
+    @JoinColumn(name = "sender", nullable = false)
+    private User sender;
+
+    @ManyToOne
+    @JoinColumn(name = "receiver", nullable = true)
+    private User receiver;
 
     public String getTid() {
         return tid;
@@ -33,36 +37,12 @@ public class Transfer implements Serializable {
         this.tid = tid;
     }
 
-    public String getSid() {
-        return sid;
+    public String getShare() {
+        return share;
     }
 
-    public void setSid(String sid) {
-        this.sid = sid;
-    }
-
-    public String getObject() {
-        return object;
-    }
-
-    public void setObject(String object) {
-        this.object = object;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setShare(String share) {
+        this.share = share;
     }
 
     public Date getSavetime() {
@@ -72,4 +52,21 @@ public class Transfer implements Serializable {
     public void setSavetime(Date savetime) {
         this.savetime = savetime;
     }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public User getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
+    }
+
 }

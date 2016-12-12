@@ -13,8 +13,8 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - return:
       - masterkey(String): master key for group creator
    - error:
-      - ErrorGroupExsit(1001): Group id is exist in this server
-      - ErrorGroupRegister(1002): Register group error
+      - ErrorGroupExsit(1001): Group id is exist in this server.
+      - ErrorGroupRegister(1002): Register group error.
 
 (2)`group/info`
    
@@ -30,7 +30,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
          - createDate(long)
          - oid(String): user id from facebook of group owner
    - error:
-      - ErrorKeyWrong(1003): Cannot get group info, master key or access key is wrong.    
+      - ErrorKeyWrong(2003): Cannot get group info, master key or access key is wrong.
 
 2. User
 ====
@@ -50,8 +50,8 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - return:
       - accesskey(String): access key for this new user
    -  error:
-      - ErrorMasterKey(2001): Master key is wrong
-      - ErrorAddUser(2004): Add user internel error
+      - ErrorMasterKey(2001): Master key is wrong.
+      - ErrorAddUser(2004): Add user internel error.
 
 (2)`user/list`
 
@@ -68,16 +68,20 @@ This is the REST API document of Grouper Web service, which is a group finance m
          - url(String): the picture url of user's avatar
          - gid(String): group id of this user's group
    -  error:
-      - ErrorAccessKey(2003): Master key or access key is wrong
+      - ErrorAccessKey(2003): Master key or access key is wrong.
       
 3. Transfer
 ====
-(1)`transfer/send`
+(1)`transfer/put`
 
+   - Put a share to transfer table
    - method: POST
-   - param: 
-      - sid(String): physical id in client
-      - content(String): a share
-      - object(String): class name of a object
-   -  return:
-      - count(int): sync times in this server
+   - param:
+      - share(String): the content of a share
+      - receiver(String): user id from facebook of the receiver, it's empty if send to all
+   - return:
+      - success(boolean)
+   -  error:
+      - ErrorAccessKey(2003): Master key or access key is wrong.
+      - ErrorNoReceiverFound(3001): Cannot find receive in this group by this user id.
+      - ErrorPutShare(3002): Put share internel error.

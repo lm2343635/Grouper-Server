@@ -1,5 +1,6 @@
 package edu.ut.common.util;
 
+import edu.ut.grouper.controller.ErrorCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -14,6 +15,10 @@ public class ResponseTool {
 
     public static ResponseEntity generateBadRequest(int errorCode, String errorMessage) {
         return generateResponseEntity(null, HttpStatus.BAD_REQUEST, errorCode, errorMessage);
+    }
+
+    public static ResponseEntity generateBadRequest(ErrorCode errorCode) {
+        return generateBadRequest(errorCode.code, errorCode.message);
     }
 
     public static ResponseEntity generateResponseEntity(Map<String, Object> result, HttpStatus status, Integer errCode, String errMsg) {
