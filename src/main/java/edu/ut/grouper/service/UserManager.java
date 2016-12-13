@@ -25,4 +25,11 @@ public interface UserManager {
      * @return
      */
     List<UserBean> getGroupListByKey(String key);
+
+    /**
+     * Auth a user by his access key.
+     * @param accesskey
+     * @return
+     */
+    UserBean authByAccessKey(String accesskey);
 }

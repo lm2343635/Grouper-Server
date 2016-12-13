@@ -65,4 +65,12 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         }
         return users;
     }
+
+    public UserBean authByAccessKey(String accesskey) {
+        User user = userDao.getByAccesskey(accesskey);
+        if (user == null) {
+            return null;
+        }
+        return new UserBean(user);
+    }
 }

@@ -5,14 +5,20 @@ package edu.ut.grouper.controller;
  */
 public enum ErrorCode {
 
-    ErrorGroupExsit(1001, "Group id is exist in this server"),
-    ErrorGroupRegister(1002, "Register group internel error"),
-    ErrorMasterKey(2001, "Master key is wrong"),
-    ErrorAccessKey(2002, "Access key is wrong"),
-    ErrorKeyWrong(2003, "Cannot get group info, master key or access key is wrong."),
-    ErrorAddUser(2004, "Add user internel error"),
-    ErrorNoReceiverFound(3001, "Cannot find receive in this group by this user id."),
-    ErrorPutShare(3002, "Put share internel error");
+    ErrorMasterKey(901, "Master key is wrong."),
+    ErrorAccessKey(902, "Access key is wrong."),
+    ErrorKeyWrong(903, "Master key or access key is wrong."),
+
+    ErrorGroupExsit(1011, "Group id is exist in this server."),
+    ErrorGroupRegister(1012, "Register group internel error."),
+
+    ErrorAddUser(2011, "Add user internel error."),
+
+    ErrorNoReceiverFound(3011, "Cannot find receiver in this group by this user id."),
+    ErrorPutShare(3012, "Put share internel error."),
+    ErrorSendSelfForbidden(3013, "Cannot send share to yourself."),
+    ErrorNoShareFound(3031, "Cannot find share by this id."),
+    ErrorShareNoPrivilege(3032, "You do not have privilege to access this share.");
 
     public int code;
     public String message;
