@@ -16,9 +16,7 @@ public enum ErrorCode {
 
     ErrorNoReceiverFound(3011, "Cannot find receiver in this group by this user id."),
     ErrorPutShare(3012, "Put share internel error."),
-    ErrorSendSelfForbidden(3013, "Cannot send share to yourself."),
-    ErrorNoShareFound(3031, "Cannot find share by this id."),
-    ErrorShareNoPrivilege(3032, "You do not have privilege to access this share.");
+    ErrorSendSelfForbidden(3013, "Cannot send share to yourself.");
 
     public int code;
     public String message;

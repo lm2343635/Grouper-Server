@@ -32,9 +32,9 @@ public interface TransferManager {
     List<String> listShare(String accesskey);
 
     /**
-     * Get content of a share by tid.
-     * @param tid
+     * Get content of shares by tid.
+     * @param tids
      * @return
      */
-    TransferBean getShareContent(String tid);
+    List<TransferBean> getShareContent(List<String> tids);
 }

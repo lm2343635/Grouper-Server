@@ -23,4 +23,11 @@ public interface TransferDao extends CrudDao<Transfer> {
      */
     List<Transfer> findMulticastInGroup(Group group);
 
+    /**
+     * Find tranfers in a set of ids
+     * @param tids
+     * @return
+     */
+    List<Transfer> findInTids(List<String> tids);
+
 }

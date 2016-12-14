@@ -95,7 +95,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - header:
       - key(String): access key of group member
    - return:
-      - shares(List<String>): id of shares
+      - shares(List\<String>): id of shares
    -  error:
       - ErrorAccessKey(902): Access key is wrong.
 
@@ -108,13 +108,43 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - param:
       - share(String): the content of a share
    - return:
-      - success(TransferBean): 
+      - found(List\<TransferBean>): 
          - id(String): share id
          - share(String): share content
          - savetime(Date)
          - sender(String): user id of sender
          - receiver(String): user id of receiver
+      - notFound(List\<String>)
+      - noPrivilege(List\<String>)
+   - return example:
+      
+		{
+		  "result": {
+		    "found": [
+		      {
+		        "id": "4028e00058f747b50158f74816e40000",
+		        "share": "3i74378yhf4y73478o378y13gyu31dvhg",
+		        "savetime": 1481617447000,
+		        "sender": "2315426890909763",
+		        "receiver": "1809472385950210"
+		      },
+		      {
+		        "id": "4028e00058f747b50158f74ebc4f0001",
+		        "share": "4389yfhoi243urfr4892h23oifh23234f",
+		        "savetime": 1481617882000,
+		        "sender": "2315426378909763",
+		        "receiver": "1809472385950210"
+		      }
+		    ],
+		    "noPrivilege": [
+		      "4028e00058f2293e0158f233ca3e0003"
+		    ],
+		    "notFound": [
+		      "4028e00058f2293e0158f2332c020889"
+		    ]
+		  },
+		  "status": 200
+		}
+      
    -  error:
       - ErrorAccessKey(902): Access key is wrong.
-      - ErrorNoShareFound(3031): Cannot find share by this id.
-      - ErrorShareNoPrivilege(3032): You do not have privilege to access this share.

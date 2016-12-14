@@ -3,12 +3,10 @@ package edu.ut.grouper.controller;
 import edu.ut.common.util.ResponseTool;
 import edu.ut.grouper.bean.TransferBean;
 import edu.ut.grouper.bean.UserBean;
-import edu.ut.grouper.domain.Group;
-import edu.ut.grouper.domain.User;
+import edu.ut.grouper.domain.Transfer;
 import edu.ut.grouper.service.TransferManager;
 import edu.ut.grouper.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/transfer")
@@ -63,22 +61,32 @@ public class TransferController {
         }});
     }
 
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public ResponseEntity getShareContent(String id, HttpServletRequest request) {
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
+    public ResponseEntity getShareContent(@RequestParam final List<String> id, HttpServletRequest request) {
         String key = request.getHeader("key");
         UserBean user = userManager.authByAccessKey(key);
         if (user == null) {
             return ResponseTool.generateBadRequest(ErrorCode.ErrorAccessKey);
         }
-        final TransferBean transfer = transferManager.getShareContent(id);
-        if (transfer == null) {
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorNoShareFound);
+
+        final List<String> noPrivilegeIds = new ArrayList<String>();
+        final List<TransferBean> transfers = transferManager.getShareContent(id);
+        final List<TransferBean> noPrivilegeTransfers = new ArrayList<TransferBean>();
+        for (TransferBean transfer: transfers) {
+            //Remove id form id list.
+            id.remove(transfer.getId());
+            //Check privilege
+            if (!transfer.getReceiver().equals(user.getId())) {
+                noPrivilegeTransfers.add(transfer);
+                noPrivilegeIds.add(transfer.getId());
+            }
         }
-        if (!transfer.getReceiver().equals(user.getId())) {
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorShareNoPrivilege);
-        }
+        //Remove no privilge transfers.
+        transfers.removeAll(noPrivilegeTransfers);
         return ResponseTool.generateOK(new HashMap<String, Object>() {{
-            put("share", transfer);
+            put("found", transfers);
+            put("notFound", id);
+            put("noPrivilege", noPrivilegeIds);
         }});
     }
 
