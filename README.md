@@ -99,7 +99,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
    -  error:
       - ErrorAccessKey(902): Access key is wrong.
 
-(2)`transfer/get`
+(3)`transfer/get`
 
    - Get a share list by access key, only get share for this user or all users.
    - method: GET
