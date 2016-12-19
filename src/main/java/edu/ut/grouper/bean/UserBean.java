@@ -8,7 +8,7 @@ public class UserBean {
     private String name;
     private String email;
     private String gender;
-    private String url;
+    private String picture;
     private String gid;
 
     public String getId() {
@@ -43,12 +43,12 @@ public class UserBean {
         this.gender = gender;
     }
 
-    public String getUrl() {
-        return url;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getGid() {
@@ -64,7 +64,7 @@ public class UserBean {
         this.name = user.getName();
         this.email = user.getEmail();
         this.gender = user.getGender();
-        this.url = user.getPictureurl();
+        this.picture = user.getPictureurl();
         this.gid = user.getGroup().getGid();
     }
 }
