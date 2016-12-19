@@ -106,7 +106,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - header:
       - key(String): access key of group member
    - param:
-      - share(String): the content of a share
+      - id(List\<String>): id list of shares, submit by id=xxx&id=xxx&id=xxx
    - return:
       - found(List\<TransferBean>): 
          - id(String): share id
