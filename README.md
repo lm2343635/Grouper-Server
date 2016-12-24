@@ -108,43 +108,35 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - param:
       - id(List\<String>): id list of shares, submit by id=xxx&id=xxx&id=xxx
    - return:
-      - found(List\<TransferBean>): 
-         - id(String): share id
-         - share(String): share content
-         - savetime(Date)
-         - sender(String): user id of sender
-         - receiver(String): user id of receiver
-      - notFound(List\<String>)
-      - noPrivilege(List\<String>)
+      - content(List\<Map>): 
+         - result(String): result for this id: found, not found or no privilege
+         - data(TransferBean): share content
    - return example:
       
 		{
 		  "result": {
-		    "found": [
+		    "contents": [
 		      {
-		        "id": "4028e00058f747b50158f74816e40000",
-		        "share": "3i74378yhf4y73478o378y13gyu31dvhg",
-		        "savetime": 1481617447000,
-		        "sender": "2315426890909763",
-		        "receiver": "1809472385950210"
+		        "result": "notFound",
+		        "data": null
 		      },
 		      {
-		        "id": "4028e00058f747b50158f74ebc4f0001",
-		        "share": "4389yfhoi243urfr4892h23oifh23234f",
-		        "savetime": 1481617882000,
-		        "sender": "2315426378909763",
-		        "receiver": "1809472385950210"
+		        "result": "found",
+		        "data": {
+		          "id": "05b3df03592f7b7601592f7e3bbe0002",
+		          "share": "3498y2fhi34o12834y124y283d88d23d",
+		          "savetime": 1482560519000,
+		          "sender": "221789398251305",
+		          "receiver": "2315426890909763"
+		        }
+		      },
+		      {
+		        "result": "noPrivilege",
+		        "data": null
 		      }
-		    ],
-		    "noPrivilege": [
-		      "4028e00058f2293e0158f233ca3e0003"
-		    ],
-		    "notFound": [
-		      "4028e00058f2293e0158f2332c020889"
 		    ]
 		  },
 		  "status": 200
-		}
-      
+		}  
    -  error:
       - ErrorAccessKey(902): Access key is wrong.

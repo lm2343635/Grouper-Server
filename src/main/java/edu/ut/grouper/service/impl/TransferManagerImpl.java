@@ -63,7 +63,15 @@ public class TransferManagerImpl extends ManagerTemplate implements TransferMana
         return ids;
     }
 
-    public List<TransferBean> getShareContent(List<String> tids) {
+    public TransferBean getShareContent(String tid) {
+        Transfer transfer = transferDao.get(tid);
+        if (transfer == null) {
+            return null;
+        }
+        return new TransferBean(transfer);
+    }
+
+    public List<TransferBean> getSharesContent(List<String> tids) {
         List<TransferBean> transfers = new ArrayList<TransferBean>();
         for (Transfer transfer: transferDao.findInTids(tids)) {
             transfers.add(new TransferBean(transfer));

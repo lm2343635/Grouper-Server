@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/transfer")
@@ -69,24 +70,25 @@ public class TransferController {
             return ResponseTool.generateBadRequest(ErrorCode.ErrorAccessKey);
         }
 
-        final List<String> noPrivilegeIds = new ArrayList<String>();
-        final List<TransferBean> transfers = transferManager.getShareContent(id);
-        final List<TransferBean> noPrivilegeTransfers = new ArrayList<TransferBean>();
-        for (TransferBean transfer: transfers) {
-            //Remove id form id list.
-            id.remove(transfer.getId());
-            //Check privilege
-            if (!transfer.getReceiver().equals(user.getId())) {
-                noPrivilegeTransfers.add(transfer);
-                noPrivilegeIds.add(transfer.getId());
+        final List<Map> contents = new ArrayList<Map>();
+        for (String tid: id) {
+            Map<String, Object> content = new HashMap<String, Object>();
+            TransferBean transfer = transferManager.getShareContent(tid);
+            if (transfer == null) {
+                content.put("result", "notFound");
+                content.put("data", null);
+            } else if (!transfer.getReceiver().equals(user.getId())) {
+                content.put("result", "noPrivilege");
+                content.put("data", null);
+            } else {
+                content.put("result", "found");
+                content.put("data", transfer);
             }
+            contents.add(content);
         }
-        //Remove no privilge transfers.
-        transfers.removeAll(noPrivilegeTransfers);
+
         return ResponseTool.generateOK(new HashMap<String, Object>() {{
-            put("found", transfers);
-            put("notFound", id);
-            put("noPrivilege", noPrivilegeIds);
+            put("contents", contents);
         }});
     }
 
