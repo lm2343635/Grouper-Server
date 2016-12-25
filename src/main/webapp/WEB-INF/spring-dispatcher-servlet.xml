@@ -23,6 +23,6 @@
 
     <mvc:resources mapping="/static/**" location="/static/"/>
 
-    <mvc:default-servlet-handler />
+    <mvc:default-servlet-handler/>
 
 </beans>

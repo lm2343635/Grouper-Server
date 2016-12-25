@@ -2,8 +2,8 @@ package edu.ut.grouper.controller;
 
 import edu.ut.grouper.bean.GroupBean;
 import edu.ut.grouper.bean.UserBean;
-import edu.ut.common.util.ResponseTool;
-import edu.ut.grouper.domain.Group;
+import edu.ut.grouper.controller.util.ResponseTool;
+import edu.ut.grouper.controller.util.ErrorCode;
 import edu.ut.grouper.service.GroupManager;
 import edu.ut.grouper.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,7 @@ public class UserController {
     @Autowired
     private UserManager userManager;
     @Autowired
+
     private GroupManager groupManager;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)

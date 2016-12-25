@@ -1,7 +1,8 @@
 package edu.ut.grouper.controller;
 
-import edu.ut.common.util.ResponseTool;
+import edu.ut.grouper.controller.util.ResponseTool;
 import edu.ut.grouper.bean.GroupBean;
+import edu.ut.grouper.controller.util.ErrorCode;
 import edu.ut.grouper.service.GroupManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

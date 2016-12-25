@@ -1,4 +1,4 @@
-package edu.ut.grouper.controller;
+package edu.ut.grouper.controller.util;
 
 /**
  * Created by limeng on 12/12/2016.

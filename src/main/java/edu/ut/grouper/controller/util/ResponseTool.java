@@ -1,6 +1,6 @@
-package edu.ut.common.util;
+package edu.ut.grouper.controller.util;
 
-import edu.ut.grouper.controller.ErrorCode;
+import edu.ut.grouper.controller.util.ErrorCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

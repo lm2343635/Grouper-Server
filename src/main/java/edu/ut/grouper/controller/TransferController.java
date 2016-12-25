@@ -1,9 +1,9 @@
 package edu.ut.grouper.controller;
 
-import edu.ut.common.util.ResponseTool;
+import edu.ut.grouper.controller.util.ResponseTool;
 import edu.ut.grouper.bean.TransferBean;
 import edu.ut.grouper.bean.UserBean;
-import edu.ut.grouper.domain.Transfer;
+import edu.ut.grouper.controller.util.ErrorCode;
 import edu.ut.grouper.service.TransferManager;
 import edu.ut.grouper.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
