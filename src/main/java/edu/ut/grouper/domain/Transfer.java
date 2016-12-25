@@ -15,7 +15,7 @@ public class Transfer implements Serializable {
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String tid;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String share;
 
     @Column(nullable = false)
