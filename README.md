@@ -38,7 +38,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - method: POST
    - param:
       - accesskey(String): access key of group member
-      - uid(String): user id from facebookz
+      - uid(String): user id from facebook
    - return:
       - owner(boolean): this user is owner of the group or not
       - group(GroupBean): group information
