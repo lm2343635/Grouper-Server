@@ -23,7 +23,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - header:
       - key(String): master key of this group or access key of group member
    - return:
-      - group(Object): group information
+      - group(GroupBean): group information
          - id(String): group id
          - name(String): group name
          - members(int): number of group members
@@ -31,6 +31,25 @@ This is the REST API document of Grouper Web service, which is a group finance m
          - oid(String): user id from facebook of group owner
    - error:
       - ErrorKeyWrong(903): Cannot get group info, master key or access key is wrong.
+
+(3)`group/restore`
+   
+   - Restore a untrusted server and get group information.
+   - method: POST
+   - param:
+      - accesskey(String): access key of group member
+      - uid(String): user id from facebook
+   - return:
+      - owner(boolean): this user is owner of the group or not
+      - group(GroupBean): group information
+         - id(String): group id
+         - name(String): group name
+         - members(int): number of group members
+         - createDate(long)
+         - oid(String): user id from facebook of group owner
+   - error:
+      - ErrorAccessKey(902): Access key is wrong.
+      - ErrorUserNotInGroup(1031): This user is not in the group with this access key.
 
 2. User
 ====
@@ -60,7 +79,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - header:
       - key(String): master key of this group or access key of group member
    - return:
-      - users(List<UserBean>): user list of this group
+      - users(List<UserBean>): user list of this group	
          - id(String): user id from facebook
          - name(String)
          - email(String)
@@ -77,7 +96,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - Put a share to transfer table
    - method: POST
    - header:
-      - key(String): access key of group member
+      - key(String): access key of group member
    - param:
       - share(String): the content of a share
       - receiver(String): user id from facebook of the receiver, it's empty if send to all
