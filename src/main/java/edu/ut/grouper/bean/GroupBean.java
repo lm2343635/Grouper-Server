@@ -6,11 +6,20 @@ import java.util.Date;
 
 public class GroupBean {
 
+    private String gid;
     private String id;
     private String name;
     private int members;
     private Date createDate;
     private String oid;
+
+    public String getGid() {
+        return gid;
+    }
+
+    public void setGid(String gid) {
+        this.gid = gid;
+    }
 
     public String getId() {
         return id;
@@ -53,6 +62,7 @@ public class GroupBean {
     }
 
     public GroupBean(Group group) {
+        this.gid = group.getGid();
         this.id = group.getId();
         this.name = group.getGname();
         this.members = group.getMembers();

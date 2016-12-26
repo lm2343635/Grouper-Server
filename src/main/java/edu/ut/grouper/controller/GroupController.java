@@ -1,9 +1,11 @@
 package edu.ut.grouper.controller;
 
+import edu.ut.grouper.bean.UserBean;
 import edu.ut.grouper.controller.util.ResponseTool;
 import edu.ut.grouper.bean.GroupBean;
 import edu.ut.grouper.controller.util.ErrorCode;
 import edu.ut.grouper.service.GroupManager;
+import edu.ut.grouper.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,9 @@ public class GroupController {
     @Autowired
     private GroupManager groupManager;
 
+    @Autowired
+    private UserManager userManager;
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity registerGroup(@RequestParam String id, @RequestParam String name) {
         if (groupManager.isGroupExist(id)) {
@@ -35,7 +40,7 @@ public class GroupController {
         }});
     }
 
-    @RequestMapping(value = "info", method = RequestMethod.GET)
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
     public ResponseEntity getGroupInformation(HttpServletRequest request) {
         String key = request.getHeader("key");
         final GroupBean group = groupManager.authByKey(key);
@@ -43,6 +48,22 @@ public class GroupController {
             return ResponseTool.generateBadRequest(ErrorCode.ErrorKeyWrong);
         }
         return ResponseTool.generateOK(new HashMap<String, Object>(){{
+            put("group", group);
+        }});
+    }
+
+    @RequestMapping(value = "/restore", method = RequestMethod.POST)
+    public ResponseEntity restoreServer(String uid, String accesskey) {
+        final GroupBean group = groupManager.authByKey(accesskey);
+        if (group == null) {
+            return ResponseTool.generateBadRequest(ErrorCode.ErrorAccessKey);
+        }
+        final UserBean user = userManager.authByAccessKey(accesskey);
+        if (!user.getId().equals(uid)) {
+            return ResponseTool.generateBadRequest(ErrorCode.ErrorUserNotInGroup);
+        }
+        return ResponseTool.generateOK(new HashMap<String, Object>(){{
+            put("owner", group.getOid().equals(user.getId()));
             put("group", group);
         }});
     }

@@ -11,6 +11,7 @@ public enum ErrorCode {
 
     ErrorGroupExsit(1011, "Group id is exist in this server."),
     ErrorGroupRegister(1012, "Register group internel error."),
+    ErrorUserNotInGroup(1031, "This user is not in the group with this access key."),
 
     ErrorAddUser(2011, "Add user internel error."),
 
