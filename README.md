@@ -33,15 +33,15 @@ This is the REST API document of Grouper Web service, which is a group finance m
       - ErrorKeyWrong(903): Cannot get group info, master key or access key is wrong.
 
 (3)`group/restore`
-   
-   - Restore a untrusted server and get group information.
+
+   - Restore a untrusted server and get group information.
    - method: POST
    - param:
       - accesskey(String): access key of group member
-      - uid(String): user id from facebook
-   - return:
-      - owner(boolean): this user is owner of the group or not
-      - group(GroupBean): group information
+      - uid(String): user id from facebookz
+   - return:
+      - owner(boolean): this user is owner of the group or not
+      - group(GroupBean): group information
          - id(String): group id
          - name(String): group name
          - members(int): number of group members
