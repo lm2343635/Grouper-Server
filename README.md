@@ -34,7 +34,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
 
 (3)`group/restore`
 
-   - Restore a untrusted server and get group information.
+   - Restore an untrusted server and get group information.
    - method: POST
    - param:
       - accesskey(String): access key of group member
