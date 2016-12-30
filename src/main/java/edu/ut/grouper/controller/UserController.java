@@ -23,8 +23,8 @@ public class UserController {
 
     @Autowired
     private UserManager userManager;
-    @Autowired
 
+    @Autowired
     private GroupManager groupManager;
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)

@@ -110,7 +110,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
 (2)`transfer/list`
 
    - Put a share to transfer table
-   - method: POST
+   - method: GET
    - header:
       - key(String): access key of group member
    - return:
