@@ -72,18 +72,24 @@ public class TransferController {
 
         final List<Map> contents = new ArrayList<Map>();
         for (String tid: id) {
+
             Map<String, Object> content = new HashMap<String, Object>();
+            content.put("id", tid);
             TransferBean transfer = transferManager.getShareContent(tid);
             if (transfer == null) {
                 content.put("result", "notFound");
                 content.put("data", null);
-            } else if (!transfer.getReceiver().equals(user.getId())) {
+            } else if (transfer.getReceiver() != null && !transfer.getReceiver().equals(user.getId())) {
                 content.put("result", "noPrivilege");
                 content.put("data", null);
             } else {
                 content.put("result", "found");
+                if (transfer.getReceiver() == null) {
+                    transfer.setReceiver("*");
+                }
                 content.put("data", transfer);
             }
+
             contents.add(content);
         }
 
