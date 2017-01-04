@@ -30,9 +30,9 @@ public class TransferController {
     private UserManager userManager;
 
     @RequestMapping(value = "/put", method = RequestMethod.POST)
-    public ResponseEntity send(@RequestParam String share, @RequestParam String receiver, HttpServletRequest request) {
+    public ResponseEntity send(@RequestParam String share, @RequestParam String receiver, @RequestParam String mid, HttpServletRequest request) {
         String key = request.getHeader("key");
-        TransferManager.PutResult result = transferManager.putShare(key, share, receiver);
+        TransferManager.PutResult result = transferManager.putShare(key, share, receiver, mid);
         if (result == TransferManager.PutResult.AccessKeyWrong) {
             return ResponseTool.generateBadRequest(ErrorCode.ErrorAccessKey);
         }

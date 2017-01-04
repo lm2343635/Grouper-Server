@@ -16,7 +16,7 @@ import java.util.UUID;
 @Service("transferManager")
 public class TransferManagerImpl extends ManagerTemplate implements TransferManager {
 
-    public PutResult putShare(String accesskey, String share, String receiverUid) {
+    public PutResult putShare(String accesskey, String share, String receiverUid, String mid) {
         User sender = userDao.getByAccesskey(accesskey);
         if (sender == null) {
             return PutResult.AccessKeyWrong;
@@ -35,7 +35,8 @@ public class TransferManagerImpl extends ManagerTemplate implements TransferMana
         transfer.setShare(share);
         transfer.setReceiver(receiver);
         transfer.setSender(sender);
-        transfer.setSavetime(new Date());
+        transfer.setSavetime(new Long(new Date().getTime()/1000));
+        transfer.setMid(mid);
         if (transferDao.save(transfer) == null) {
             return PutResult.InternelError;
         }

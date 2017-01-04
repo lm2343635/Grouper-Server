@@ -4,23 +4,20 @@ import edu.ut.grouper.domain.Transfer;
 
 import java.util.Date;
 
-/**
- * Created by limeng on 13/12/2016.
- */
 public class TransferBean {
 
-    private String id;
+    private String mid;
     private String share;
-    private Date savetime;
+    private long savetime;
     private String sender;
     private String receiver;
 
-    public String getId() {
-        return id;
+    public String getMid() {
+        return mid;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setMid(String mid) {
+        this.mid = mid;
     }
 
     public String getShare() {
@@ -31,11 +28,11 @@ public class TransferBean {
         this.share = share;
     }
 
-    public Date getSavetime() {
+    public long getSavetime() {
         return savetime;
     }
 
-    public void setSavetime(Date savetime) {
+    public void setSavetime(long savetime) {
         this.savetime = savetime;
     }
 
@@ -56,7 +53,7 @@ public class TransferBean {
     }
 
     public TransferBean(Transfer transfer) {
-        this.id = transfer.getTid();
+        this.mid = transfer.getMid();
         this.share = transfer.getShare();
         this.savetime = transfer.getSavetime();
         this.sender = transfer.getSender().getUid();

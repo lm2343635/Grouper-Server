@@ -20,9 +20,10 @@ public interface TransferManager {
      * @param accesskey
      * @param share
      * @param receiverUid
+     * @param mid Message id
      * @return
      */
-    PutResult putShare(String accesskey, String share, String receiverUid);
+    PutResult putShare(String accesskey, String share, String receiverUid, String mid);
 
     /**
      * Get a share list by access key, only get share for this user or all users.

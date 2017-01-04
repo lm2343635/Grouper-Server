@@ -19,7 +19,10 @@ public class Transfer implements Serializable {
     private String share;
 
     @Column(nullable = false)
-    private Date savetime;
+    private Long savetime;
+
+    @Column(nullable = false)
+    private String mid;
 
     @ManyToOne
     @JoinColumn(name = "sender", nullable = false)
@@ -45,12 +48,20 @@ public class Transfer implements Serializable {
         this.share = share;
     }
 
-    public Date getSavetime() {
+    public Long getSavetime() {
         return savetime;
     }
 
-    public void setSavetime(Date savetime) {
+    public void setSavetime(Long savetime) {
         this.savetime = savetime;
+    }
+
+    public String getMid() {
+        return mid;
+    }
+
+    public void setMid(String mid) {
+        this.mid = mid;
     }
 
     public User getSender() {
