@@ -67,4 +67,20 @@ public class GroupController {
             put("group", group);
         }});
     }
+
+    @RequestMapping(value = "/init", method = RequestMethod.POST)
+    public ResponseEntity initializeGroup(@RequestParam int servers, @RequestParam int threshold, HttpServletRequest request) {
+        String key = request.getHeader("key");
+        GroupBean group = groupManager.authByMasterkey(key);
+        if (group == null) {
+            return ResponseTool.generateBadRequest(ErrorCode.ErrorMasterKey);
+        }
+        if (!groupManager.initializeGroup(group.getGid(), servers, threshold)) {
+            return ResponseTool.generateBadRequest(ErrorCode.ErrorGroupInitialized);
+        }
+        return ResponseTool.generateOK(new HashMap<String, Object>(){{
+            put("success", true);
+        }});
+    }
+
 }

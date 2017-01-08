@@ -6,12 +6,9 @@ import edu.ut.grouper.domain.User;
 import edu.ut.grouper.service.TransferManager;
 import edu.ut.grouper.service.util.ManagerTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Service("transferManager")
 public class TransferManagerImpl extends ManagerTemplate implements TransferManager {
@@ -35,7 +32,7 @@ public class TransferManagerImpl extends ManagerTemplate implements TransferMana
         transfer.setShare(share);
         transfer.setReceiver(receiver);
         transfer.setSender(sender);
-        transfer.setSavetime(new Long(new Date().getTime()/1000));
+        transfer.setSavetime(System.currentTimeMillis() / 1000L);
         transfer.setMid(mid);
         if (transferDao.save(transfer) == null) {
             return PutResult.InternelError;

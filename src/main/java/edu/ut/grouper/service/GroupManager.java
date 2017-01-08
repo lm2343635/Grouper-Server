@@ -1,7 +1,6 @@
 package edu.ut.grouper.service;
 
 import edu.ut.grouper.bean.GroupBean;
-import edu.ut.grouper.domain.Group;
 
 public interface GroupManager {
 
@@ -33,4 +32,13 @@ public interface GroupManager {
      * @return
      */
     GroupBean authByKey(String key);
+
+    /**
+     * Initialize a group by submitting server count and threshold server count for recovering.
+     * @param gid
+     * @param servers
+     * @param threshold
+     * @return
+     */
+    boolean initializeGroup(String gid, int servers, int threshold);
 }

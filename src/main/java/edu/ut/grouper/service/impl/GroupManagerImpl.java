@@ -7,7 +7,6 @@ import edu.ut.grouper.service.GroupManager;
 import edu.ut.grouper.service.util.ManagerTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.UUID;
 
 @Service("groupManager")
@@ -23,7 +22,7 @@ public class GroupManagerImpl extends ManagerTemplate implements GroupManager {
         group.setId(id);
         group.setMasterkey(UUID.randomUUID().toString());
         group.setMembers(0);
-        group.setCreateDate(new Date());
+        group.setCreateDate(System.currentTimeMillis() / 1000L);
         if (groupDao.save(group) != null) {
             return group.getMasterkey();
         }
@@ -48,6 +47,20 @@ public class GroupManagerImpl extends ManagerTemplate implements GroupManager {
             return null;
         }
         return new GroupBean(user.getGroup());
+    }
+
+    public boolean initializeGroup(String gid, int servers, int threshold) {
+        Group group = groupDao.get(gid);
+        if (group == null) {
+            return false;
+        }
+        if (group.getServers() != null) {
+            return false;
+        }
+        group.setServers(servers);
+        group.setThreshold(threshold);
+        groupDao.update(group);
+        return true;
     }
 
 }

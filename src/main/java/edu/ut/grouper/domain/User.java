@@ -8,18 +8,30 @@ import java.io.Serializable;
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String uuid;
+
     @Column(nullable = false)
     private String uid;
+
+    @Column
     private String name;
+
+    @Column
     private String email;
+
+    @Column
     private String gender;
+
+    @Column
     private String pictureurl;
+
     @Column(nullable = false)
     private String accesskey;
+
     @ManyToOne
     @JoinColumn(name = "gid")
     private Group group;
@@ -87,4 +99,5 @@ public class User implements Serializable {
     public void setGroup(Group group) {
         this.group = group;
     }
+
 }

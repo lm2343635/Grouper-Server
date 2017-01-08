@@ -4,7 +4,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Table(name = "grouper")
@@ -28,7 +27,13 @@ public class Group implements Serializable {
     private String masterkey;
 
     @Column(nullable = false)
-    private Date createDate;
+    private Long createDate;
+
+    @Column
+    private Integer servers;
+
+    @Column
+    private Integer threshold;
 
     @ManyToOne
     @JoinColumn(name = "owner", unique = true)
@@ -74,11 +79,11 @@ public class Group implements Serializable {
         this.masterkey = masterkey;
     }
 
-    public Date getCreateDate() {
+    public Long getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(Long createDate) {
         this.createDate = createDate;
     }
 
@@ -88,5 +93,21 @@ public class Group implements Serializable {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public Integer getServers() {
+        return servers;
+    }
+
+    public void setServers(Integer servers) {
+        this.servers = servers;
+    }
+
+    public Integer getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(Integer threshold) {
+        this.threshold = threshold;
     }
 }

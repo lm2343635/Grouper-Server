@@ -1,8 +1,5 @@
 package edu.ut.grouper.controller.util;
 
-/**
- * Created by limeng on 12/12/2016.
- */
 public enum ErrorCode {
 
     ErrorMasterKey(901, "Master key is wrong."),
@@ -12,6 +9,7 @@ public enum ErrorCode {
     ErrorGroupExsit(1011, "Group id is exist in this server."),
     ErrorGroupRegister(1012, "Register group internel error."),
     ErrorUserNotInGroup(1031, "This user is not in the group with this access key."),
+    ErrorGroupInitialized(1041, "This group has been initialized before."),
 
     ErrorAddUser(2011, "Add user internel error."),
 

@@ -2,16 +2,16 @@ package edu.ut.grouper.bean;
 
 import edu.ut.grouper.domain.Group;
 
-import java.util.Date;
-
 public class GroupBean {
 
     private String gid;
     private String id;
     private String name;
     private int members;
-    private Date createDate;
+    private long createDate;
     private String oid;
+    private int servers;
+    private int threshold;
 
     public String getGid() {
         return gid;
@@ -45,11 +45,11 @@ public class GroupBean {
         this.members = members;
     }
 
-    public Date getCreateDate() {
+    public long getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(long createDate) {
         this.createDate = createDate;
     }
 
@@ -61,6 +61,22 @@ public class GroupBean {
         this.oid = oid;
     }
 
+    public int getServers() {
+        return servers;
+    }
+
+    public void setServers(int servers) {
+        this.servers = servers;
+    }
+
+    public int getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(int threshold) {
+        this.threshold = threshold;
+    }
+
     public GroupBean(Group group) {
         this.gid = group.getGid();
         this.id = group.getId();
@@ -68,5 +84,7 @@ public class GroupBean {
         this.members = group.getMembers();
         this.createDate = group.getCreateDate();
         this.oid = (group.getOwner() == null)? null: group.getOwner().getUid();
+        this.servers = (group.getServers() == null)? 0: group.getServers();
+        this.threshold = (group.getThreshold() == null)? 0: group.getThreshold();
     }
 }
