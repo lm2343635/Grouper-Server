@@ -51,6 +51,19 @@ This is the REST API document of Grouper Web service, which is a group finance m
       - ErrorAccessKey(902): Access key is wrong.
       - ErrorUserNotInGroup(1031): This user is not in the group with this access key.
 
+(4)`group/init`
+
+   - Initialize a group by submitting the number of servers and recover threshold.
+   - method: POST
+   - param:
+      - server(int): the number of servers
+      - threshold(int): recover threshold
+   - return:
+      - success(boolean)
+   - error:
+      - ErrorMasterKey(901): Master key is wrong.
+      - ErrorGroupInitialized(1041): This group has been initialized before.
+
 2. User
 ====
 (1)`user/add`
@@ -130,6 +143,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
       - content(List\<Map>): 
          - result(String): result for this id: found, not found or no privilege
          - data(TransferBean): share content
+         - id: share id
    - return example:
       
 		{
@@ -137,21 +151,24 @@ This is the REST API document of Grouper Web service, which is a group finance m
 		    "contents": [
 		      {
 		        "result": "notFound",
-		        "data": null
+		        "data": null,
+		        "id": "4028e00059677d820asdasdasdd59002" 
 		      },
 		      {
 		        "result": "found",
 		        "data": {
-		          "id": "05b3df03592f7b7601592f7e3bbe0002",
-		          "share": "3498y2fhi34o12834y124y283d88d23d",
+		          "mid": "ADED87CD-D659-458F-B70D-335F31F042DE",
+		          "share": "0202B065A3F6F108C964FD900C8004015F4962CC63BD933A978980A6671A3F15000F4BE28D960",
 		          "savetime": 1482560519000,
 		          "sender": "221789398251305",
 		          "receiver": "2315426890909763"
-		        }
+		        },
+		        "id": "4028e00059677d8201596785b1590000"
 		      },
 		      {
 		        "result": "noPrivilege",
-		        "data": null
+		        "data": null,
+		        "id": "4028e000597cfe3601597d15a5ef0004"
 		      }
 		    ]
 		  },
