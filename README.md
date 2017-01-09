@@ -29,6 +29,8 @@ This is the REST API document of Grouper Web service, which is a group finance m
          - members(int): number of group members
          - createDate(long)
          - oid(String): user id from facebook of group owner
+         - servers(int): number of untrusted servers
+         - threshold(int): recover threshold
    - error:
       - ErrorKeyWrong(903): Cannot get group info, master key or access key is wrong.
 
@@ -47,6 +49,8 @@ This is the REST API document of Grouper Web service, which is a group finance m
          - members(int): number of group members
          - createDate(long)
          - oid(String): user id from facebook of group owner
+         - servers(int): number of untrusted servers
+         - threshold(int): recover threshold
    - error:
       - ErrorAccessKey(902): Access key is wrong.
       - ErrorUserNotInGroup(1031): This user is not in the group with this access key.
@@ -92,7 +96,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - header:
       - key(String): master key of this group or access key of group member
    - return:
-      - users(List<UserBean>): user list of this group	
+      - users(List<UserBean>): user list of this group
          - id(String): user id from facebook
          - name(String)
          - email(String)
@@ -101,7 +105,16 @@ This is the REST API document of Grouper Web service, which is a group finance m
          - gid(String): group id of this user's group
    -  error:
       - ErrorAccessKey(903): Master key or access key is wrong.
-      
+
+(3)`user/state`
+
+   - Check server state.
+   - method: GET
+   - header:
+      - key(String): access key of group member
+   - return:
+      - ok(boolean): user can access this user or not
+       
 3. Transfer
 ====
 (1)`transfer/put`

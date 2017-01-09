@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
@@ -56,4 +57,14 @@ public class UserController {
             put("users", users);
         }});
     }
+
+    @RequestMapping(value = "/state", method = RequestMethod.GET)
+    public ResponseEntity checkServerState(HttpServletRequest request) {
+        String key = request.getHeader("key");
+        final boolean state = userManager.authByAccessKey(key) != null;
+        return ResponseTool.generateOK(new HashMap<String, Object>() {{
+            put("ok", state);
+        }});
+    }
+
 }
