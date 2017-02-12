@@ -1,4 +1,4 @@
-package edu.ut.grouper.service.util;
+package edu.ut.grouper.service.common;
 
 import edu.ut.grouper.dao.GroupDao;
 import edu.ut.grouper.dao.TransferDao;

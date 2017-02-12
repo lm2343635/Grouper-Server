@@ -5,6 +5,7 @@ import edu.ut.grouper.domain.Group;
 import edu.ut.grouper.domain.Transfer;
 import edu.ut.grouper.domain.User;
 
+import java.util.Date;
 import java.util.List;
 
 public interface TransferDao extends CrudDao<Transfer> {
@@ -29,5 +30,12 @@ public interface TransferDao extends CrudDao<Transfer> {
      * @return
      */
     List<Transfer> findInTids(List<String> tids);
+
+    /**
+     * Find transfers before a past save time
+     * @param savetime
+     * @return
+     */
+    List<Transfer> findBeforeSaveTime(Long savetime);
 
 }

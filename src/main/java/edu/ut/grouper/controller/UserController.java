@@ -2,8 +2,8 @@ package edu.ut.grouper.controller;
 
 import edu.ut.grouper.bean.GroupBean;
 import edu.ut.grouper.bean.UserBean;
-import edu.ut.grouper.controller.util.ResponseTool;
-import edu.ut.grouper.controller.util.ErrorCode;
+import edu.ut.grouper.controller.common.ControllerTemplate;
+import edu.ut.grouper.controller.common.ErrorCode;
 import edu.ut.grouper.service.GroupManager;
 import edu.ut.grouper.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
-
-    @Autowired
-    private UserManager userManager;
-
-    @Autowired
-    private GroupManager groupManager;
+public class UserController extends ControllerTemplate {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ResponseEntity addUser(@RequestParam String uid, @RequestParam String name, @RequestParam String email,
@@ -35,13 +28,13 @@ public class UserController {
         String key = request.getHeader("key");
         GroupBean group = groupManager.authByMasterkey(key);
         if (group == null) {
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorMasterKey);
+            return generateBadRequest(ErrorCode.ErrorMasterKey);
         }
         final String accesskey = userManager.addUser(uid, name, email, gender, pictureUrl, group.getId(), owner);
         if (accesskey == null) {
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorAddUser);
+            return generateBadRequest(ErrorCode.ErrorAddUser);
         }
-        return ResponseTool.generateOK(new HashMap<String, Object>(){{
+        return generateOK(new HashMap<String, Object>(){{
             put("accesskey", accesskey);
         }});
     }
@@ -51,9 +44,9 @@ public class UserController {
         String key = request.getHeader("key");
         final List<UserBean> users = userManager.getGroupListByKey(key);
         if (users == null) {
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorKeyWrong);
+            return generateBadRequest(ErrorCode.ErrorKeyWrong);
         }
-        return ResponseTool.generateOK(new HashMap<String, Object>(){{
+        return generateOK(new HashMap<String, Object>(){{
             put("users", users);
         }});
     }
@@ -62,7 +55,7 @@ public class UserController {
     public ResponseEntity checkServerState(HttpServletRequest request) {
         String key = request.getHeader("key");
         final boolean state = userManager.authByAccessKey(key) != null;
-        return ResponseTool.generateOK(new HashMap<String, Object>() {{
+        return generateOK(new HashMap<String, Object>() {{
             put("ok", state);
         }});
     }

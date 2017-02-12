@@ -4,8 +4,9 @@ import edu.ut.grouper.bean.UserBean;
 import edu.ut.grouper.domain.Group;
 import edu.ut.grouper.domain.User;
 import edu.ut.grouper.service.UserManager;
-import edu.ut.grouper.service.util.ManagerTemplate;
+import edu.ut.grouper.service.common.ManagerTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Service("userManager")
 public class UserManagerImpl extends ManagerTemplate implements UserManager {
 
+    @Transactional
     public String addUser(String uid, String name, String email, String gender, String pictureUrl, String gid, boolean owner) {
         Group group = groupDao.getByGroupId(gid);
         if (group == null) {

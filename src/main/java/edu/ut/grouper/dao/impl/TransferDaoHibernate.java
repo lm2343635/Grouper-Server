@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository("transferDao")
@@ -42,5 +43,10 @@ public class TransferDaoHibernate extends PageHibernateDaoSupport<Transfer> impl
                 return query.list();
             }
         });
+    }
+
+    public List<Transfer> findBeforeSaveTime(Long savetime) {
+        String hql = "from Transfer where savetime < ?";
+        return (List<Transfer>) getHibernateTemplate().find(hql, savetime);
     }
 }

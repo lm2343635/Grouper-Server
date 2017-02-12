@@ -1,9 +1,9 @@
 package edu.ut.grouper.controller;
 
-import edu.ut.grouper.controller.util.ResponseTool;
 import edu.ut.grouper.bean.TransferBean;
 import edu.ut.grouper.bean.UserBean;
-import edu.ut.grouper.controller.util.ErrorCode;
+import edu.ut.grouper.controller.common.ControllerTemplate;
+import edu.ut.grouper.controller.common.ErrorCode;
 import edu.ut.grouper.service.TransferManager;
 import edu.ut.grouper.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,31 +21,25 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/transfer")
-public class TransferController {
-
-    @Autowired
-    private TransferManager transferManager;
-
-    @Autowired
-    private UserManager userManager;
+public class TransferController extends ControllerTemplate {
 
     @RequestMapping(value = "/put", method = RequestMethod.POST)
     public ResponseEntity send(@RequestParam String share, @RequestParam String receiver, @RequestParam String mid, HttpServletRequest request) {
         String key = request.getHeader("key");
         TransferManager.PutResult result = transferManager.putShare(key, share, receiver, mid);
         if (result == TransferManager.PutResult.AccessKeyWrong) {
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorAccessKey);
+            return generateBadRequest(ErrorCode.ErrorAccessKey);
         }
         if (result == TransferManager.PutResult.NoReceiverFound) {
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorNoReceiverFound);
+            return generateBadRequest(ErrorCode.ErrorNoReceiverFound);
         }
         if (result == TransferManager.PutResult.SendSelfForbidden) {
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorSendSelfForbidden);
+            return generateBadRequest(ErrorCode.ErrorSendSelfForbidden);
         }
         if (result == TransferManager.PutResult.InternelError) {
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorPutShare);
+            return generateBadRequest(ErrorCode.ErrorPutShare);
         }
-        return ResponseTool.generateOK(new HashMap<String, Object>(){{
+        return generateOK(new HashMap<String, Object>(){{
             put("success", true);
         }});
     }
@@ -55,9 +49,9 @@ public class TransferController {
         String key = request.getHeader("key");
         final List<String> ids = transferManager.listShare(key);
         if (ids == null) {
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorAccessKey);
+            return generateBadRequest(ErrorCode.ErrorAccessKey);
         }
-        return ResponseTool.generateOK(new HashMap<String, Object>(){{
+        return generateOK(new HashMap<String, Object>(){{
             put("shares", ids);
         }});
     }
@@ -67,7 +61,7 @@ public class TransferController {
         String key = request.getHeader("key");
         UserBean user = userManager.authByAccessKey(key);
         if (user == null) {
-            return ResponseTool.generateBadRequest(ErrorCode.ErrorAccessKey);
+            return generateBadRequest(ErrorCode.ErrorAccessKey);
         }
 
         final List<Map> contents = new ArrayList<Map>();
@@ -93,7 +87,7 @@ public class TransferController {
             contents.add(content);
         }
 
-        return ResponseTool.generateOK(new HashMap<String, Object>() {{
+        return generateOK(new HashMap<String, Object>() {{
             put("contents", contents);
         }});
     }

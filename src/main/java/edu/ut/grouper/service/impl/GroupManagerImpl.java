@@ -4,8 +4,9 @@ import edu.ut.grouper.bean.GroupBean;
 import edu.ut.grouper.domain.Group;
 import edu.ut.grouper.domain.User;
 import edu.ut.grouper.service.GroupManager;
-import edu.ut.grouper.service.util.ManagerTemplate;
+import edu.ut.grouper.service.common.ManagerTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -16,6 +17,7 @@ public class GroupManagerImpl extends ManagerTemplate implements GroupManager {
         return groupDao.getByGroupId(id)!= null;
     }
 
+    @Transactional
     public String registerGroup(String id, String name) {
         Group group = new Group();
         group.setGname(name);
@@ -49,6 +51,7 @@ public class GroupManagerImpl extends ManagerTemplate implements GroupManager {
         return new GroupBean(user.getGroup());
     }
 
+    @Transactional
     public boolean initializeGroup(String gid, int servers, int threshold) {
         Group group = groupDao.get(gid);
         if (group == null) {

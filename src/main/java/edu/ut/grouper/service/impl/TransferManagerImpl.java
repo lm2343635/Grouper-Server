@@ -4,8 +4,9 @@ import edu.ut.grouper.bean.TransferBean;
 import edu.ut.grouper.domain.Transfer;
 import edu.ut.grouper.domain.User;
 import edu.ut.grouper.service.TransferManager;
-import edu.ut.grouper.service.util.ManagerTemplate;
+import edu.ut.grouper.service.common.ManagerTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Service("transferManager")
 public class TransferManagerImpl extends ManagerTemplate implements TransferManager {
 
+    @Transactional
     public PutResult putShare(String accesskey, String share, String receiverUid, String mid) {
         User sender = userDao.getByAccesskey(accesskey);
         if (sender == null) {

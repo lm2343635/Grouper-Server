@@ -1,4 +1,4 @@
-package edu.ut.grouper.controller.util;
+package edu.ut.grouper.controller.common;
 
 public enum ErrorCode {
 
