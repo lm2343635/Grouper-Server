@@ -75,4 +75,15 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         }
         return new UserBean(user);
     }
+
+    @Transactional
+    public boolean updateDeviceToken(String deviceToken, String uid) {
+        User user = userDao.get(uid);
+        if (user == null) {
+            return false;
+        }
+        user.setDeviceToken(deviceToken);
+        userDao.update(user);
+        return true;
+    }
 }

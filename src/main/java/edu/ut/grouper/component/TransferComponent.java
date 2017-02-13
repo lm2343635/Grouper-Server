@@ -18,6 +18,7 @@ public class TransferComponent {
     @Autowired
     private TransferDao transferDao;
 
+    // Check and delete transfer created 1 hour ago every minute.
     @Scheduled(fixedRate = 1000 * 60)
     @Transactional
     public void removeTansfers() {
@@ -27,6 +28,5 @@ public class TransferComponent {
             transferDao.delete(transfer);
         }
         System.out.println("Delete " + transfers.size() + " transfer entities at " + new Date());
-
     }
 }

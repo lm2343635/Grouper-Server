@@ -60,4 +60,17 @@ public class UserController extends ControllerTemplate {
         }});
     }
 
+    @RequestMapping(value = "/deviceToken", method = RequestMethod.POST)
+    public ResponseEntity submitDeviceToken(@RequestParam String deviceToken, HttpServletRequest request) {
+        String key = request.getHeader("key");
+        final UserBean userBean = userManager.authByAccessKey(key);
+        if (userBean == null) {
+            return generateBadRequest(ErrorCode.ErrorAccessKey);
+        }
+        final boolean success = userManager.updateDeviceToken(deviceToken, userBean.getUuid());
+        return generateOK(new HashMap<String, Object>() {{
+            put("success", true);
+        }});
+    }
+
 }

@@ -1,5 +1,6 @@
 package edu.ut.grouper.controller.common;
 
+import edu.ut.grouper.component.APNsComponent;
 import edu.ut.grouper.service.GroupManager;
 import edu.ut.grouper.service.TransferManager;
 import edu.ut.grouper.service.UserManager;
@@ -20,6 +21,9 @@ public class ControllerTemplate {
 
     @Autowired
     protected TransferManager transferManager;
+
+    @Autowired
+    protected APNsComponent apnsComponent;
 
     protected ResponseEntity generateOK(Map<String, Object> result) {
         return generateResponseEntity(result, HttpStatus.OK, null, null);

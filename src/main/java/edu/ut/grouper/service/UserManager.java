@@ -32,4 +32,11 @@ public interface UserManager {
      * @return
      */
     UserBean authByAccessKey(String accesskey);
+
+    /**
+     * Update device's device token of a user.
+     * @param deviceToken
+     * @param uid
+     */
+    boolean updateDeviceToken(String deviceToken, String uid);
 }

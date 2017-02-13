@@ -32,6 +32,9 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String accesskey;
 
+    @Column
+    private String deviceToken;
+
     @ManyToOne
     @JoinColumn(name = "gid")
     private Group group;
@@ -90,6 +93,14 @@ public class User implements Serializable {
 
     public void setPictureurl(String pictureurl) {
         this.pictureurl = pictureurl;
+    }
+
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 
     public Group getGroup() {
