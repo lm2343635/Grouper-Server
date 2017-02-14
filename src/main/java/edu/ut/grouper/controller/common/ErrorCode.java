@@ -12,6 +12,7 @@ public enum ErrorCode {
     ErrorGroupInitialized(1041, "This group has been initialized before."),
 
     ErrorAddUser(2011, "Add user internel error."),
+    ErrorPushNoPrivilege(2051, "This user has no privilege to push remote notification to the receiver"),
 
     ErrorNoReceiverFound(3011, "Cannot find receiver in this group by this user id."),
     ErrorPutShare(3012, "Put share internel error."),

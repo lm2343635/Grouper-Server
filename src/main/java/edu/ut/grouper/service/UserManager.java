@@ -34,9 +34,26 @@ public interface UserManager {
     UserBean authByAccessKey(String accesskey);
 
     /**
+     * Get a user by his user id and group id.
+     * @param uid
+     * @param gid
+     * @return
+     */
+    UserBean getUserByUserIdInGroup(String uid, String gid);
+
+    /**
      * Update device's device token of a user.
      * @param deviceToken
      * @param uid
      */
     boolean updateDeviceToken(String deviceToken, String uid);
+
+    /**
+     *
+     * @param receiver
+     * @param alertBody
+     * @param uid
+     * @return
+     */
+    boolean pushNotificationTo(String receiver, String alertBody, String uid);
 }

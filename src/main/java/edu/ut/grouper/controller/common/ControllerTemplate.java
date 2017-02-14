@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,9 +22,6 @@ public class ControllerTemplate {
 
     @Autowired
     protected TransferManager transferManager;
-
-    @Autowired
-    protected APNsComponent apnsComponent;
 
     protected ResponseEntity generateOK(Map<String, Object> result) {
         return generateResponseEntity(result, HttpStatus.OK, null, null);
@@ -52,4 +50,7 @@ public class ControllerTemplate {
         return new ResponseEntity(data, status);
     }
 
+    protected String authKey(HttpServletRequest request) {
+        return request.getHeader("key");
+    }
 }

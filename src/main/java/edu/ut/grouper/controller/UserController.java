@@ -25,8 +25,7 @@ public class UserController extends ControllerTemplate {
     public ResponseEntity addUser(@RequestParam String uid, @RequestParam String name, @RequestParam String email,
                                   @RequestParam String gender, @RequestParam String pictureUrl, @RequestParam boolean owner,
                                   HttpServletRequest request) {
-        String key = request.getHeader("key");
-        GroupBean group = groupManager.authByMasterkey(key);
+        GroupBean group = groupManager.authByMasterkey(authKey(request));
         if (group == null) {
             return generateBadRequest(ErrorCode.ErrorMasterKey);
         }
@@ -41,8 +40,7 @@ public class UserController extends ControllerTemplate {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public ResponseEntity getGroupList(HttpServletRequest request) {
-        String key = request.getHeader("key");
-        final List<UserBean> users = userManager.getGroupListByKey(key);
+        final List<UserBean> users = userManager.getGroupListByKey(authKey(request));
         if (users == null) {
             return generateBadRequest(ErrorCode.ErrorKeyWrong);
         }
@@ -53,8 +51,7 @@ public class UserController extends ControllerTemplate {
 
     @RequestMapping(value = "/state", method = RequestMethod.GET)
     public ResponseEntity checkServerState(HttpServletRequest request) {
-        String key = request.getHeader("key");
-        final boolean state = userManager.authByAccessKey(key) != null;
+        final boolean state = userManager.authByAccessKey(authKey(request)) != null;
         return generateOK(new HashMap<String, Object>() {{
             put("ok", state);
         }});
@@ -62,14 +59,30 @@ public class UserController extends ControllerTemplate {
 
     @RequestMapping(value = "/deviceToken", method = RequestMethod.POST)
     public ResponseEntity submitDeviceToken(@RequestParam String deviceToken, HttpServletRequest request) {
-        String key = request.getHeader("key");
-        final UserBean userBean = userManager.authByAccessKey(key);
+        final UserBean userBean = userManager.authByAccessKey(authKey(request));
         if (userBean == null) {
             return generateBadRequest(ErrorCode.ErrorAccessKey);
         }
         final boolean success = userManager.updateDeviceToken(deviceToken, userBean.getUuid());
         return generateOK(new HashMap<String, Object>() {{
-            put("success", true);
+            put("success", success);
+        }});
+    }
+
+    @RequestMapping(value = "/notify", method = RequestMethod.POST)
+    public ResponseEntity remotePushNotification(@RequestParam String content, @RequestParam String receiver, HttpServletRequest request) {
+        UserBean userBean = userManager.authByAccessKey(authKey(request));
+        if (userBean == null) {
+            return generateBadRequest(ErrorCode.ErrorMasterKey);
+        }
+        if (!receiver.equals("*")) {
+            if (userManager.getUserByUserIdInGroup(receiver, userBean.getGid()) == null) {
+                return generateBadRequest(ErrorCode.ErrorPushNoPrivilege);
+            }
+        }
+        final boolean success = userManager.pushNotificationTo(receiver, content, userBean.getUuid());
+        return generateOK(new HashMap<String, Object>() {{
+            put("success", success);
         }});
     }
 

@@ -3,16 +3,46 @@ package edu.ut.grouper.component;
 
 import com.notnoop.apns.APNS;
 import com.notnoop.apns.ApnsService;
-import org.springframework.stereotype.Component;
+import com.notnoop.apns.ApnsServiceBuilder;
 
-@Component
 public class APNsComponent {
 
-    ApnsService service ;//= APNS.newService().withCert("/Users/limeng/Desktop/aps.p12", "").withSandboxDestination().build();
+    private String p12;
+    private String password;
+    private boolean distribution;
 
-    public void push() {
-        String payload = APNS.newPayload().alertBody("Test!").sound("default").build();
-        String token = "b61ee2b647c14991cd7738f74ae1d3727aa899275c3804cdf81775afb3bbc9d8";
-        service.push(token, payload);
+    public void setP12(String p12) {
+        this.p12 = p12;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setDistribution(boolean distribution) {
+        this.distribution = distribution;
+    }
+
+    private ApnsService service = null;
+
+    public ApnsService getService() {
+        if (service == null) {
+            ApnsServiceBuilder builder = APNS.newService().withCert(p12, password);
+            if (distribution) {
+                service = builder.withSandboxDestination().build();
+            } else {
+                service = builder.build();
+            }
+        }
+        return service;
+    }
+
+    public void push(String deviceToken, String alertBody) {
+        if (deviceToken == null || deviceToken.equals("")) {
+            return;
+        }
+        String payload = APNS.newPayload().alertBody(alertBody).sound("default").build();
+        getService().push(deviceToken, payload);
+    }
+
 }

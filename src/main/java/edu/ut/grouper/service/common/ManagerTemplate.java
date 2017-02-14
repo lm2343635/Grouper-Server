@@ -1,19 +1,26 @@
 package edu.ut.grouper.service.common;
 
+import edu.ut.grouper.component.APNsComponent;
 import edu.ut.grouper.dao.GroupDao;
 import edu.ut.grouper.dao.TransferDao;
 import edu.ut.grouper.dao.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 
 public class ManagerTemplate {
 
-    @Resource(name = "transferDao")
+    @Autowired
     protected TransferDao transferDao;
-    @Resource(name = "groupDao")
+
+    @Autowired
     protected GroupDao groupDao;
-    @Resource(name = "userDao")
+
+    @Autowired
     protected UserDao userDao;
+
+    @Autowired
+    protected APNsComponent apnsComponent;
 
     public TransferDao getTransferDao() {
         return transferDao;

@@ -24,9 +24,10 @@ public interface UserDao extends CrudDao<User> {
     User getByAccesskey(String accesskey);
 
     /**
-     * Find all users in
+     * Find all users in a group.
      * @param group
      * @return
      */
     List<User> findByGroup(Group group);
+
 }

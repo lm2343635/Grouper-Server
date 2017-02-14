@@ -114,6 +114,17 @@ This is the REST API document of Grouper Web service, which is a group finance m
       - key(String): access key of group member
    - return:
       - ok(boolean): user can access this user or not
+
+(3)`user/deviceToken`
+
+   - Update device's device token of a user.
+   - method: POST
+   - header:
+      - key(String): access key of group member
+   - param: 
+      - deviceToken(String): device token from APNs server
+   - return:
+      - success(boolean)
        
 3. Transfer
 ====

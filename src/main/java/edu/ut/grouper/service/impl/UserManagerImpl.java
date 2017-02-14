@@ -86,4 +86,41 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         userDao.update(user);
         return true;
     }
+
+    public UserBean getUserByUserIdInGroup(String uid, String gid) {
+        Group group = groupDao.get(gid);
+        if (group == null) {
+            return null;
+        }
+        User user = userDao.getByUidInGroup(uid, group);
+        if (user == null) {
+            return null;
+        }
+        return new UserBean(user);
+    }
+
+    public boolean pushNotificationTo(String receiverUid, String alertBody, String uid) {
+        User user = userDao.get(uid);
+        if (user == null) {
+            return false;
+        }
+        // Push notification to all members except the sender himself if receiver's uid is "*".
+        if (receiverUid.equals("*")) {
+            for (User reveiver: userDao.findByGroup(user.getGroup())) {
+                // Skip sender himself.
+                if (reveiver == user) {
+                    continue;
+                }
+                apnsComponent.push(reveiver.getDeviceToken(), alertBody);
+            }
+        } else {
+            User receiver = userDao.getByUidInGroup(receiverUid, user.getGroup());
+            if (receiver == null) {
+                return false;
+            }
+            apnsComponent.push(receiver.getDeviceToken(), alertBody);
+        }
+        return true;
+    }
+
 }

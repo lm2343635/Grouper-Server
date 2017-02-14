@@ -38,4 +38,5 @@ public class UserDaoHibernate extends PageHibernateDaoSupport<User> implements U
         String hql = "from User where group = ?";
         return (List<User>) getHibernateTemplate().find(hql, group);
     }
+
 }
