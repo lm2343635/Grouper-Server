@@ -103,7 +103,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
          - gender(String)
          - url(String): the picture url of user's avatar
          - gid(String): group id of this user's group
-   -  error:
+   - error:
       - ErrorAccessKey(903): Master key or access key is wrong.
 
 (3)`user/state`
@@ -115,7 +115,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - return:
       - ok(boolean): user can access this user or not
 
-(3)`user/deviceToken`
+(4)`user/deviceToken`
 
    - Update device's device token of a user.
    - method: POST
@@ -125,7 +125,22 @@ This is the REST API document of Grouper Web service, which is a group finance m
       - deviceToken(String): device token from APNs server
    - return:
       - success(boolean)
-       
+
+(4)`user/notify`
+
+   - Notify a receiver with a message.
+   - method: POST
+   - header:
+      - key(String): access key of group member
+   - param: 
+      - content(String): message content
+      - receiver(String): receiver's user Id. User * if notify all group members.
+   - return:
+      - success(boolean)
+   - error:
+      - ErrorAccessKey(903): Master key or access key is wrong.
+      - ErrorPushNoPrivilege(2051): This user has no privilege to push remote notification to the receiver.
+   
 3. Transfer
 
 (1)`transfer/put`

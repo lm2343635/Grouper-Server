@@ -73,7 +73,7 @@ public class UserController extends ControllerTemplate {
     public ResponseEntity remotePushNotification(@RequestParam String content, @RequestParam String receiver, HttpServletRequest request) {
         UserBean userBean = userManager.authByAccessKey(authKey(request));
         if (userBean == null) {
-            return generateBadRequest(ErrorCode.ErrorMasterKey);
+            return generateBadRequest(ErrorCode.ErrorAccessKey);
         }
         if (!receiver.equals("*")) {
             if (userManager.getUserByUserIdInGroup(receiver, userBean.getGid()) == null) {
