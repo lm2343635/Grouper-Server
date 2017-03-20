@@ -2,7 +2,7 @@
 This is the REST API document of Grouper Web service, which is a group finance manager application using multiple untrusted servers.
 
 1. Group
-====
+
 (1)`group/register`
    
    - Register a new group in this untrusted server.
@@ -69,7 +69,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
       - ErrorGroupInitialized(1041): This group has been initialized before.
 
 2. User
-====
+
 (1)`user/add`
 
    - Add a new user in this untrusted server.
@@ -127,7 +127,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
       - success(boolean)
        
 3. Transfer
-====
+
 (1)`transfer/put`
 
    - Put a share to transfer table
@@ -169,7 +169,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
          - data(TransferBean): share content
          - id: share id
    - return example:
-      
+
 		{
 		  "result": {
 		    "contents": [
@@ -198,5 +198,6 @@ This is the REST API document of Grouper Web service, which is a group finance m
 		  },
 		  "status": 200
 		}  
+   
    -  error:
       - ErrorAccessKey(902): Access key is wrong.
