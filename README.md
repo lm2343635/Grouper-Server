@@ -148,7 +148,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - Put a share to transfer table
    - method: POST
    - header:
-      - key(String): access key of group member
+      - key(String): access key of group member
    - param:
       - share(String): the content of a share
       - receiver(String): user id from facebook of the receiver, it's empty if send to all
