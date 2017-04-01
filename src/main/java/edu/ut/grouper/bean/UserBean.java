@@ -4,28 +4,28 @@ import edu.ut.grouper.domain.User;
 
 public class UserBean {
 
-    private String uuid;
-    private String id;
+    private String uid;
+    private String userId;
     private String name;
     private String email;
     private String gender;
     private String picture;
     private String gid;
 
-    public String getUuid() {
-        return uuid;
+    public String getUid() {
+        return uid;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -69,8 +69,8 @@ public class UserBean {
     }
 
     public UserBean(User user) {
-        this.uuid = user.getUuid();
-        this.id = user.getUid();
+        this.uid = user.getUid();
+        this.userId = user.getUserId();
         this.name = user.getName();
         this.email = user.getEmail();
         this.gender = user.getGender();

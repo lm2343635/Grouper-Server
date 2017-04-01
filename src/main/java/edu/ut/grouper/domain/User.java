@@ -6,16 +6,16 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "user")
+@Table(name = "grouper_user")
 public class User implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
-    private String uuid;
+    private String uid;
 
     @Column(nullable = false)
-    private String uid;
+    private String userId;
 
     @Column
     private String name;
@@ -39,20 +39,20 @@ public class User implements Serializable {
     @JoinColumn(name = "gid")
     private Group group;
 
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
-
     public String getUid() {
         return uid;
     }
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {

@@ -73,7 +73,7 @@ public class TransferController extends ControllerTemplate {
             if (transfer == null) {
                 content.put("result", "notFound");
                 content.put("data", null);
-            } else if (transfer.getReceiver() != null && !transfer.getReceiver().equals(user.getId())) {
+            } else if (transfer.getReceiver() != null && !transfer.getReceiver().equals(user.getUserId())) {
                 content.put("result", "noPrivilege");
                 content.put("data", null);
             } else {

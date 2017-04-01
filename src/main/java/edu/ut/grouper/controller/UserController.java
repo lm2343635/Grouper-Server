@@ -22,14 +22,14 @@ import java.util.List;
 public class UserController extends ControllerTemplate {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ResponseEntity addUser(@RequestParam String uid, @RequestParam String name, @RequestParam String email,
+    public ResponseEntity addUser(@RequestParam String userId, @RequestParam String name, @RequestParam String email,
                                   @RequestParam String gender, @RequestParam String pictureUrl, @RequestParam boolean owner,
                                   HttpServletRequest request) {
         GroupBean group = groupManager.authByMasterkey(authKey(request));
         if (group == null) {
             return generateBadRequest(ErrorCode.ErrorMasterKey);
         }
-        final String accesskey = userManager.addUser(uid, name, email, gender, pictureUrl, group.getId(), owner);
+        final String accesskey = userManager.addUser(userId, name, email, gender, pictureUrl, group.getId(), owner);
         if (accesskey == null) {
             return generateBadRequest(ErrorCode.ErrorAddUser);
         }
@@ -63,7 +63,7 @@ public class UserController extends ControllerTemplate {
         if (userBean == null) {
             return generateBadRequest(ErrorCode.ErrorAccessKey);
         }
-        final boolean success = userManager.updateDeviceToken(deviceToken, userBean.getUuid());
+        final boolean success = userManager.updateDeviceToken(deviceToken, userBean.getUid());
         return generateOK(new HashMap<String, Object>() {{
             put("success", success);
         }});
@@ -80,7 +80,7 @@ public class UserController extends ControllerTemplate {
                 return generateBadRequest(ErrorCode.ErrorPushNoPrivilege);
             }
         }
-        final boolean success = userManager.pushNotificationTo(receiver, content, userBean.getUuid());
+        final boolean success = userManager.pushNotificationTo(receiver, content, userBean.getUid());
         return generateOK(new HashMap<String, Object>() {{
             put("success", success);
         }});

@@ -6,18 +6,18 @@ import java.util.Date;
 
 public class TransferBean {
 
-    private String mid;
+    private String messageId;
     private String share;
     private long savetime;
     private String sender;
     private String receiver;
 
-    public String getMid() {
-        return mid;
+    public String getMessageId() {
+        return messageId;
     }
 
-    public void setMid(String mid) {
-        this.mid = mid;
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
     }
 
     public String getShare() {
@@ -53,7 +53,7 @@ public class TransferBean {
     }
 
     public TransferBean(Transfer transfer) {
-        this.mid = transfer.getMid();
+        this.messageId = transfer.getMessageId();
         this.share = transfer.getShare();
         this.savetime = transfer.getSavetime();
         this.sender = transfer.getSender().getUid();

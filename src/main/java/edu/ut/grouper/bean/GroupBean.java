@@ -83,7 +83,7 @@ public class GroupBean {
         this.name = group.getGname();
         this.members = group.getMembers();
         this.createDate = group.getCreateDate();
-        this.oid = (group.getOwner() == null)? null: group.getOwner().getUid();
+        this.oid = (group.getOwner() == null)? null: group.getOwner().getUserId();
         this.servers = (group.getServers() == null)? 0: group.getServers();
         this.threshold = (group.getThreshold() == null)? 0: group.getThreshold();
     }

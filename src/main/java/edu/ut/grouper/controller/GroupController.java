@@ -55,11 +55,11 @@ public class GroupController extends ControllerTemplate {
             return generateBadRequest(ErrorCode.ErrorAccessKey);
         }
         final UserBean user = userManager.authByAccessKey(accesskey);
-        if (!user.getId().equals(uid)) {
+        if (!user.getUserId().equals(uid)) {
             return generateBadRequest(ErrorCode.ErrorUserNotInGroup);
         }
         return generateOK(new HashMap<String, Object>(){{
-            put("owner", group.getOid().equals(user.getId()));
+            put("owner", group.getOid().equals(user.getUserId()));
             put("group", group);
         }});
     }

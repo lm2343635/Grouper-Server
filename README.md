@@ -1,5 +1,5 @@
 # Grouper's API Document
-This is the REST API document of Grouper Web service, which is a group finance manager application using multiple untrusted servers.
+This is the REST API document of Grouper Web service. Grouper is a framwework for creating mobile applications based on data syncrhonization using multiple unstrusted servers.
 
 ### 1. Group
 
@@ -77,7 +77,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - header:
       - key(String): master key
    - param: 
-      - uid(String) : user id from facebook
+      - userId(String) : userId from facebook
       - name(String)
       - email(String)
       - gender(String)
@@ -97,7 +97,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
       - key(String): master key of this group or access key of group member
    - return:
       - users(List<UserBean>): user list of this group
-         - id(String): user id from facebook
+         - userId(String): user id from facebook
          - name(String)
          - email(String)
          - gender(String)
@@ -152,6 +152,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - param:
       - share(String): the content of a share
       - receiver(String): user id from facebook of the receiver, it's empty if send to all
+      - messageId(String): messageId of the message which can be recovered by this share
    - return:
       - success(boolean)
    -  error:

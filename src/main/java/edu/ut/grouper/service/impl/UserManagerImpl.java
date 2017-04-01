@@ -16,17 +16,17 @@ import java.util.UUID;
 public class UserManagerImpl extends ManagerTemplate implements UserManager {
 
     @Transactional
-    public String addUser(String uid, String name, String email, String gender, String pictureUrl, String gid, boolean owner) {
+    public String addUser(String userId, String name, String email, String gender, String pictureUrl, String gid, boolean owner) {
         Group group = groupDao.getByGroupId(gid);
         if (group == null) {
             return null;
         }
         //Find this user in this group.
-        User user = userDao.getByUidInGroup(uid, group);
+        User user = userDao.getByUserIdInGroup(userId, group);
         //If this user is not found, new it.
         if (user == null) {
             user = new User();
-            user.setUid(uid);
+            user.setUserId(userId);
             user.setName(name);
             user.setEmail(email);
             user.setGender(gender);
@@ -42,7 +42,7 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
             group.setMembers(group.getMembers() + 1);
             groupDao.update(group);
         } else {
-            user.setUid(uid);
+            user.setUid(userId);
             user.setName(name);
             user.setEmail(email);
             user.setGender(gender);
@@ -87,12 +87,12 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         return true;
     }
 
-    public UserBean getUserByUserIdInGroup(String uid, String gid) {
+    public UserBean getUserByUserIdInGroup(String userId, String gid) {
         Group group = groupDao.get(gid);
         if (group == null) {
             return null;
         }
-        User user = userDao.getByUidInGroup(uid, group);
+        User user = userDao.getByUserIdInGroup(userId, group);
         if (user == null) {
             return null;
         }
@@ -114,7 +114,7 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
                 apnsComponent.push(reveiver.getDeviceToken(), alertBody);
             }
         } else {
-            User receiver = userDao.getByUidInGroup(receiverUid, user.getGroup());
+            User receiver = userDao.getByUserIdInGroup(receiverUid, user.getGroup());
             if (receiver == null) {
                 return false;
             }

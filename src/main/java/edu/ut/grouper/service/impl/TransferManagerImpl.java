@@ -15,14 +15,14 @@ import java.util.List;
 public class TransferManagerImpl extends ManagerTemplate implements TransferManager {
 
     @Transactional
-    public PutResult putShare(String accesskey, String share, String receiverUid, String messageId) {
+    public PutResult putShare(String accesskey, String share, String receiverUserId, String messageId) {
         User sender = userDao.getByAccesskey(accesskey);
         if (sender == null) {
             return PutResult.AccessKeyWrong;
         }
         User receiver = null;
-        if (!receiverUid.equals("") && receiverUid != null) {
-            receiver = userDao.getByUidInGroup(receiverUid, sender.getGroup());
+        if (!receiverUserId.equals("") && receiverUserId != null) {
+            receiver = userDao.getByUserIdInGroup(receiverUserId, sender.getGroup());
             if (receiver == null) {
                 return PutResult.NoReceiverFound;
             }
@@ -55,7 +55,7 @@ public class TransferManagerImpl extends ManagerTemplate implements TransferMana
         //Find tranfers for all (multicast).
         for (Transfer transfer : transferDao.findMulticastInGroup(user.getGroup())) {
             //Multicast message for this user himself cannot be added.
-            if (transfer.getSender().getUuid().equals(user.getUuid())) {
+            if (transfer.getSender().getUid().equals(user.getUid())) {
                 continue;
             }
             ids.add(transfer.getTid());

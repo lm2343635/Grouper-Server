@@ -16,7 +16,7 @@ public class UserDaoHibernate extends PageHibernateDaoSupport<User> implements U
         setClass(User.class);
     }
 
-    public User getByUidInGroup(String uid, Group group) {
+    public User getByUserIdInGroup(String uid, Group group) {
         String hql = "from User where uid = ? and group =?";
         List<User> users = (List<User>)getHibernateTemplate().find(hql, uid, group);
         if (users.size() == 0) {

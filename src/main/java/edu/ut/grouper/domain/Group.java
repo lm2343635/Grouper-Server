@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "grouper")
+@Table(name = "grouper_group")
 public class Group implements Serializable {
 
     @Id

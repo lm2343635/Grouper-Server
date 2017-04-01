@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "transfer")
+@Table(name = "grouper_transfer")
 public class Transfer implements Serializable {
 
     @Id
