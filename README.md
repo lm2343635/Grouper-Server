@@ -1,7 +1,7 @@
 # Grouper's API Document
 This is the REST API document of Grouper Web service, which is a group finance manager application using multiple untrusted servers.
 
-1. Group
+### 1. Group
 
 (1)`group/register`
    
@@ -68,7 +68,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
       - ErrorMasterKey(901): Master key is wrong.
       - ErrorGroupInitialized(1041): This group has been initialized before.
 
-2. User
+### 2. User
 
 (1)`user/add`
 
@@ -141,14 +141,14 @@ This is the REST API document of Grouper Web service, which is a group finance m
       - ErrorAccessKey(903): Master key or access key is wrong.
       - ErrorPushNoPrivilege(2051): This user has no privilege to push remote notification to the receiver.
    
-3. Transfer
+### 3. Transfer
 
 (1)`transfer/put`
 
    - Put a share to transfer table
    - method: POST
    - header:
-      - key(String): access key of group member
+      - key(String): access key of group member
    - param:
       - share(String): the content of a share
       - receiver(String): user id from facebook of the receiver, it's empty if send to all
@@ -184,35 +184,35 @@ This is the REST API document of Grouper Web service, which is a group finance m
          - data(TransferBean): share content
          - id: share id
    - return example:
-
-		{
-		  "result": {
-		    "contents": [
-		      {
-		        "result": "notFound",
-		        "data": null,
-		        "id": "4028e00059677d820asdasdasdd59002" 
-		      },
-		      {
-		        "result": "found",
-		        "data": {
-		          "mid": "ADED87CD-D659-458F-B70D-335F31F042DE",
-		          "share": "0202B065A3F6F108C964FD900C8004015F4962CC63BD933A978980A6671A3F15000F4BE28D960",
-		          "savetime": 1482560519000,
-		          "sender": "221789398251305",
-		          "receiver": "2315426890909763"
-		        },
-		        "id": "4028e00059677d8201596785b1590000"
-		      },
-		      {
-		        "result": "noPrivilege",
-		        "data": null,
-		        "id": "4028e000597cfe3601597d15a5ef0004"
-		      }
-		    ]
-		  },
-		  "status": 200
-		}  
-   
+```json
+{
+  "result": {
+    "contents": [
+      {
+        "result": "notFound",
+        "data": null,
+        "id": "4028e00059677d820asdasdasdd59002" 
+      },
+      {
+        "result": "found",
+        "data": {
+          "mid": "ADED87CD-D659-458F-B70D-335F31F042DE",
+          "share": "0202B065A3F6F108C964FD900C8004015F4962CC63BD933A978980A6671A3F15000F4BE28D960",
+          "savetime": 1482560519000,
+          "sender": "221789398251305",
+          "receiver": "2315426890909763"
+        },
+        "id": "4028e00059677d8201596785b1590000"
+      },
+      {
+        "result": "noPrivilege",
+        "data": null,
+        "id": "4028e000597cfe3601597d15a5ef0004"
+      }
+    ]
+  },
+  "status": 200
+}  
+``` 
    -  error:
       - ErrorAccessKey(902): Access key is wrong.
