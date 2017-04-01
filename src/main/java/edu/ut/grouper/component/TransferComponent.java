@@ -27,6 +27,5 @@ public class TransferComponent {
         for (Transfer transfer : transfers) {
             transferDao.delete(transfer);
         }
-//        System.out.println("Delete " + transfers.size() + " transfer entities at " + new Date());
     }
 }

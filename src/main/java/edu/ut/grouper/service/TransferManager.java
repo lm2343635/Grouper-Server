@@ -17,16 +17,18 @@ public interface TransferManager {
 
     /**
      * Put a share into transfer table.
+     *
      * @param accesskey
      * @param share
      * @param receiverUid
-     * @param mid Message id
+     * @param messageId   Message id
      * @return
      */
-    PutResult putShare(String accesskey, String share, String receiverUid, String mid);
+    PutResult putShare(String accesskey, String share, String receiverUid, String messageId);
 
     /**
      * Get a share list by access key, only get share for this user or all users.
+     *
      * @param accesskey
      * @return
      */
@@ -34,6 +36,7 @@ public interface TransferManager {
 
     /**
      * Get content of a share by tid
+     *
      * @param tid
      * @return
      */
@@ -41,6 +44,7 @@ public interface TransferManager {
 
     /**
      * Get content of shares by tids.
+     *
      * @param tids
      * @return
      */

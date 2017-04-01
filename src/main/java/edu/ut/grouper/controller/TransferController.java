@@ -24,9 +24,9 @@ import java.util.Map;
 public class TransferController extends ControllerTemplate {
 
     @RequestMapping(value = "/put", method = RequestMethod.POST)
-    public ResponseEntity send(@RequestParam String share, @RequestParam String receiver, @RequestParam String mid, HttpServletRequest request) {
+    public ResponseEntity send(@RequestParam String share, @RequestParam String receiver, @RequestParam String messageId, HttpServletRequest request) {
         String key = request.getHeader("key");
-        TransferManager.PutResult result = transferManager.putShare(key, share, receiver, mid);
+        TransferManager.PutResult result = transferManager.putShare(key, share, receiver, messageId);
         if (result == TransferManager.PutResult.AccessKeyWrong) {
             return generateBadRequest(ErrorCode.ErrorAccessKey);
         }
@@ -39,7 +39,7 @@ public class TransferController extends ControllerTemplate {
         if (result == TransferManager.PutResult.InternelError) {
             return generateBadRequest(ErrorCode.ErrorPutShare);
         }
-        return generateOK(new HashMap<String, Object>(){{
+        return generateOK(new HashMap<String, Object>() {{
             put("success", true);
         }});
     }
@@ -51,7 +51,7 @@ public class TransferController extends ControllerTemplate {
         if (ids == null) {
             return generateBadRequest(ErrorCode.ErrorAccessKey);
         }
-        return generateOK(new HashMap<String, Object>(){{
+        return generateOK(new HashMap<String, Object>() {{
             put("shares", ids);
         }});
     }
@@ -65,7 +65,7 @@ public class TransferController extends ControllerTemplate {
         }
 
         final List<Map> contents = new ArrayList<Map>();
-        for (String tid: id) {
+        for (String tid : id) {
 
             Map<String, Object> content = new HashMap<String, Object>();
             content.put("id", tid);

@@ -126,7 +126,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
    - return:
       - success(boolean)
 
-(4)`user/notify`
+(5)`user/notify`
 
    - Notify a receiver with a message.
    - method: POST
@@ -157,7 +157,7 @@ This is the REST API document of Grouper Web service, which is a group finance m
    -  error:
       - ErrorAccessKey(902): Access key is wrong.
       - ErrorNoReceiverFound(3011): Cannot find receiver in this group by this user id.
-      - ErrorPutShare(3012): Put share internel error.
+      - ErrorPutShare(3012): Put share internal error.
 
 (2)`transfer/list`
 

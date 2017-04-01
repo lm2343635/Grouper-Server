@@ -22,7 +22,7 @@ public class Transfer implements Serializable {
     private Long savetime;
 
     @Column(nullable = false)
-    private String mid;
+    private String messageId;
 
     @ManyToOne
     @JoinColumn(name = "sender", nullable = false)
@@ -56,12 +56,12 @@ public class Transfer implements Serializable {
         this.savetime = savetime;
     }
 
-    public String getMid() {
-        return mid;
+    public String getMessageId() {
+        return messageId;
     }
 
-    public void setMid(String mid) {
-        this.mid = mid;
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
     }
 
     public User getSender() {

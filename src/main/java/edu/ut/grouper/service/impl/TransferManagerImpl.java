@@ -15,7 +15,7 @@ import java.util.List;
 public class TransferManagerImpl extends ManagerTemplate implements TransferManager {
 
     @Transactional
-    public PutResult putShare(String accesskey, String share, String receiverUid, String mid) {
+    public PutResult putShare(String accesskey, String share, String receiverUid, String messageId) {
         User sender = userDao.getByAccesskey(accesskey);
         if (sender == null) {
             return PutResult.AccessKeyWrong;
@@ -35,7 +35,7 @@ public class TransferManagerImpl extends ManagerTemplate implements TransferMana
         transfer.setReceiver(receiver);
         transfer.setSender(sender);
         transfer.setSavetime(System.currentTimeMillis() / 1000L);
-        transfer.setMid(mid);
+        transfer.setMessageId(messageId);
         if (transferDao.save(transfer) == null) {
             return PutResult.InternelError;
         }
@@ -49,11 +49,11 @@ public class TransferManagerImpl extends ManagerTemplate implements TransferMana
         }
         List<String> ids = new ArrayList<String>();
         //Find transfers for this user.
-        for (Transfer transfer: transferDao.findByReceiver(user)) {
+        for (Transfer transfer : transferDao.findByReceiver(user)) {
             ids.add(transfer.getTid());
         }
         //Find tranfers for all (multicast).
-        for (Transfer transfer: transferDao.findMulticastInGroup(user.getGroup())) {
+        for (Transfer transfer : transferDao.findMulticastInGroup(user.getGroup())) {
             //Multicast message for this user himself cannot be added.
             if (transfer.getSender().getUuid().equals(user.getUuid())) {
                 continue;
@@ -73,7 +73,7 @@ public class TransferManagerImpl extends ManagerTemplate implements TransferMana
 
     public List<TransferBean> getSharesContent(List<String> tids) {
         List<TransferBean> transfers = new ArrayList<TransferBean>();
-        for (Transfer transfer: transferDao.findInTids(tids)) {
+        for (Transfer transfer : transferDao.findInTids(tids)) {
             transfers.add(new TransferBean(transfer));
         }
         return transfers;
