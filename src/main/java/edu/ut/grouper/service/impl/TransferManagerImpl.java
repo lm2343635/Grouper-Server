@@ -21,7 +21,7 @@ public class TransferManagerImpl extends ManagerTemplate implements TransferMana
             return PutResult.AccessKeyWrong;
         }
         User receiver = null;
-        if (!receiverUserId.equals("") && receiverUserId != null) {
+        if (!receiverUserId.equals("*") && receiverUserId != null) {
             receiver = userDao.getByUserIdInGroup(receiverUserId, sender.getGroup());
             if (receiver == null) {
                 return PutResult.NoReceiverFound;
