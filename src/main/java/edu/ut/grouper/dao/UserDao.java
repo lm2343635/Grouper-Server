@@ -10,11 +10,11 @@ public interface UserDao extends CrudDao<User> {
 
     /**
      * Find an user by his userId and group
-     * @param uid
+     * @param userId
      * @param group
      * @return
      */
-    User getByUserIdInGroup(String uid, Group group);
+    User getByUserIdInGroup(String userId, Group group);
 
     /**
      * Find an user by his access key
