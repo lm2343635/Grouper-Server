@@ -6,10 +6,6 @@ import edu.ut.grouper.bean.UserBean;
 import edu.ut.grouper.controller.common.ControllerTemplate;
 import edu.ut.grouper.controller.common.ErrorCode;
 import edu.ut.grouper.service.TransferManager;
-import edu.ut.grouper.service.UserManager;
-import net.sf.json.JSONObject;
-import org.apache.commons.collections.map.HashedMap;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,7 +87,7 @@ public class TransferController extends ControllerTemplate {
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
     public ResponseEntity confirmMessageShare(@RequestParam final List<String> messageId, HttpServletRequest request) {
 
-        return generateOK(new HashedMap() {{
+        return generateOK(new HashMap<String, Object>() {{
 
         }});
     }
@@ -113,7 +109,7 @@ public class TransferController extends ControllerTemplate {
         if (badRequest != null) {
             return badRequest;
         }
-        return generateOK(new HashedMap() {{
+        return generateOK(new HashMap<String, Object>() {{
             put("success", true);
         }});
     }

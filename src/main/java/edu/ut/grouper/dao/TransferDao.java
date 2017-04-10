@@ -5,7 +5,6 @@ import edu.ut.grouper.domain.Group;
 import edu.ut.grouper.domain.Transfer;
 import edu.ut.grouper.domain.User;
 
-import java.util.Date;
 import java.util.List;
 
 public interface TransferDao extends CrudDao<Transfer> {

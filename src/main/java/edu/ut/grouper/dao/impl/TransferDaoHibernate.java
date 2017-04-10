@@ -5,12 +5,12 @@ import edu.ut.grouper.dao.TransferDao;
 import edu.ut.grouper.domain.Group;
 import edu.ut.grouper.domain.Transfer;
 import edu.ut.grouper.domain.User;
-import org.hibernate.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.springframework.orm.hibernate4.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 @Repository("transferDao")

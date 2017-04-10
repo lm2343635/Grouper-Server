@@ -28,7 +28,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
          - name(String): group name
          - members(int): number of group members
          - createDate(long)
-         - oid(String): user id from facebook of group owner
+         - oid(String): userId from facebook of group owner
          - servers(int): number of untrusted servers
          - threshold(int): recover threshold
    - error:
@@ -40,7 +40,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - method: POST
    - param:
       - accesskey(String): access key of group member
-      - uid(String): user id from facebook
+      - uid(String): userId from facebook
    - return:
       - owner(boolean): this user is owner of the group or not
       - group(GroupBean): group information
@@ -48,7 +48,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
          - name(String): group name
          - members(int): number of group members
          - createDate(long)
-         - oid(String): user id from facebook of group owner
+         - oid(String): userId from facebook of group owner
          - servers(int): number of untrusted servers
          - threshold(int): recover threshold
    - error:
@@ -97,7 +97,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
       - key(String): master key of this group or access key of group member
    - return:
       - users(List<UserBean>): user list of this group
-         - userId(String): user id from facebook
+         - userId(String): userId from facebook
          - name(String)
          - email(String)
          - gender(String)
@@ -134,7 +134,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
       - key(String): access key of group member
    - param: 
       - content(String): message content
-      - receiver(String): receiver's user Id. User * if notify all group members.
+      - receiver(String): receiver's userId. Use "*" if notify all group members.
    - return:
       - success(boolean)
    - error:
@@ -151,14 +151,15 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
       - key(String): access key of group member
    - param:
       - share(String): the content of a share
-      - receiver(String): user id from facebook of the receiver, it's empty if send to all
+      - receiver(String): userId of the receiver, it's "*" if send to all
       - messageId(String): messageId of the message which can be recovered by this share
    - return:
       - success(boolean)
    -  error:
       - ErrorAccessKey(902): Access key is wrong.
-      - ErrorNoReceiverFound(3011): Cannot find receiver in this group by this user id.
+      - ErrorNoReceiverFound(3011): Cannot find receiver in this group by this userId.
       - ErrorPutShare(3012): Put share internal error.
+      - ErrorSendSelfForbidden(3013): Cannot send share to yourself.
 
 (2)`transfer/list`
 
@@ -217,3 +218,29 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 ``` 
    -  error:
       - ErrorAccessKey(902): Access key is wrong.
+
+(4)`transfer/confirm`
+
+(5)`transfer/reput`
+
+   - Reput shares to transfer table
+   - method: POST
+   - header:
+      - key(String): access key of group member
+   - param:
+      - shares(JSON String, Map\<String, String>): messageId-share Map, it is a JSON String like such format
+```json
+{
+	"messageId": "shareContent",
+	"messageId": "shareContent"
+}
+```
+      - receiver(String): userId of the receiver, it's "*" if send to all
+   - return:
+      - success(boolean)
+   -  error:
+      - ErrorAccessKey(902): Access key is wrong.
+      - ErrorNoReceiverFound(3011): Cannot find receiver in this group by this userId.
+      - ErrorPutShare(3012): Put share internal error.
+      - ErrorSendSelfForbidden(3013): Cannot send share to yourself.
+      - ErrorMessageIdShareFormat(3051): The format of Map<messageId, shareContent> is worong, so that server cannot parse this map.
