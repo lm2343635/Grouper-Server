@@ -21,7 +21,7 @@ public class Transfer implements Serializable {
     @Column(nullable = false)
     private Long savetime;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String messageId;
 
     @ManyToOne
@@ -29,7 +29,7 @@ public class Transfer implements Serializable {
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name = "receiver", nullable = true)
+    @JoinColumn(name = "receiver")
     private User receiver;
 
     public String getTid() {

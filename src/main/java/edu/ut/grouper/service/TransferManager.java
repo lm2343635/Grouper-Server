@@ -4,6 +4,7 @@ import edu.ut.grouper.bean.TransferBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TransferManager {
 
@@ -20,11 +21,21 @@ public interface TransferManager {
      *
      * @param accesskey
      * @param share
-     * @param receiverUserId
+     * @param receiver
      * @param messageId
      * @return
      */
-    PutResult putShare(String accesskey, String share, String receiverUserId, String messageId);
+    PutResult putShare(String accesskey, String share, String receiver, String messageId);
+
+    /**
+     * Reput shares into transfer table.
+     *
+     * @param accesskey
+     * @param shares    Shares is a map, it contains messageId and share content like {"messageId": "shareContent"}
+     * @param receiver
+     * @return
+     */
+    PutResult reputShare(String accesskey, Map<String, String> shares, String receiver);
 
     /**
      * Get a share list by access key, only get share for this user or all users.
@@ -49,4 +60,5 @@ public interface TransferManager {
      * @return
      */
     List<TransferBean> getSharesContent(List<String> tids);
+
 }

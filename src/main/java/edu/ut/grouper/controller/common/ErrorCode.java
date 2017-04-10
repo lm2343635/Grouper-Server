@@ -16,7 +16,8 @@ public enum ErrorCode {
 
     ErrorNoReceiverFound(3011, "Cannot find receiver in this group by this user id."),
     ErrorPutShare(3012, "Put share internel error."),
-    ErrorSendSelfForbidden(3013, "Cannot send share to yourself.");
+    ErrorSendSelfForbidden(3013, "Cannot send share to yourself."),
+    ErrorMessageIdShareFormat(3051, "The format of Map<messageId, shareContent> is worong, so that server cannot parse this map.");
 
     public int code;
     public String message;

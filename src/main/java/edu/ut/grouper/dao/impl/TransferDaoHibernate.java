@@ -49,4 +49,14 @@ public class TransferDaoHibernate extends PageHibernateDaoSupport<Transfer> impl
         String hql = "from Transfer where savetime < ?";
         return (List<Transfer>) getHibernateTemplate().find(hql, savetime);
     }
+
+    public Transfer getByMessageId(String messageId) {
+        String hql = "from Transfer where messageId = ?";
+        List<Transfer> transfers = (List<Transfer>) getHibernateTemplate().find(hql, messageId);
+        if (transfers.size() == 0) {
+            return null;
+        }
+        return transfers.get(0);
+    }
+
 }

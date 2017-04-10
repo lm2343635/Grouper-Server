@@ -10,19 +10,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service("transferManager")
 public class TransferManagerImpl extends ManagerTemplate implements TransferManager {
 
     @Transactional
-    public PutResult putShare(String accesskey, String share, String receiverUserId, String messageId) {
+    public PutResult putShare(String accesskey, String share, String receiverId, String messageId) {
         User sender = userDao.getByAccesskey(accesskey);
         if (sender == null) {
             return PutResult.AccessKeyWrong;
         }
         User receiver = null;
-        if (!receiverUserId.equals("*") && receiverUserId != null) {
-            receiver = userDao.getByUserIdInGroup(receiverUserId, sender.getGroup());
+        if (!receiverId.equals("*") && receiverId != null) {
+            receiver = userDao.getByUserIdInGroup(receiverId, sender.getGroup());
             if (receiver == null) {
                 return PutResult.NoReceiverFound;
             }
@@ -38,6 +39,45 @@ public class TransferManagerImpl extends ManagerTemplate implements TransferMana
         transfer.setMessageId(messageId);
         if (transferDao.save(transfer) == null) {
             return PutResult.InternelError;
+        }
+        return PutResult.Success;
+    }
+
+    @Transactional
+    public PutResult reputShare(String accesskey, Map<String, String> shares, String receiverId) {
+        User sender = userDao.getByAccesskey(accesskey);
+        if (sender == null) {
+            return PutResult.AccessKeyWrong;
+        }
+        User receiver = null;
+        if (!receiverId.equals("*") && receiverId != null) {
+            receiver = userDao.getByUserIdInGroup(receiverId, sender.getGroup());
+            if (receiver == null) {
+                return PutResult.NoReceiverFound;
+            }
+            if (receiver == sender) {
+                return PutResult.SendSelfForbidden;
+            }
+        }
+        for (String messageId : shares.keySet()) {
+            // Check is transfer object is existed or not by messageId.
+            Transfer transfer = transferDao.getByMessageId(messageId);
+            if (transfer != null) {
+                // Update share content if transfer object is existed.
+                transfer.setShare(shares.get(messageId));
+                // Update savetime.
+                transfer.setSavetime(System.currentTimeMillis() / 1000L);
+                transferDao.update(transfer);
+            } else {
+                // Create a new transfer object if it not existed.
+                transfer = new Transfer();
+                transfer.setShare(shares.get(messageId));
+                transfer.setReceiver(receiver);
+                transfer.setSender(sender);
+                transfer.setSavetime(System.currentTimeMillis() / 1000L);
+                transfer.setMessageId(messageId);
+                transferDao.save(transfer);
+            }
         }
         return PutResult.Success;
     }

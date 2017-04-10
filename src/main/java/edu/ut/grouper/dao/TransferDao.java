@@ -12,6 +12,7 @@ public interface TransferDao extends CrudDao<Transfer> {
 
     /**
      * Find tranfers of which receiver is this user
+     *
      * @param user
      * @return
      */
@@ -19,6 +20,7 @@ public interface TransferDao extends CrudDao<Transfer> {
 
     /**
      * Find transfers which are multicast messages in a group
+     *
      * @param group
      * @return
      */
@@ -26,6 +28,7 @@ public interface TransferDao extends CrudDao<Transfer> {
 
     /**
      * Find tranfers in a set of ids
+     *
      * @param tids
      * @return
      */
@@ -33,9 +36,18 @@ public interface TransferDao extends CrudDao<Transfer> {
 
     /**
      * Find transfers before a past save time
+     *
      * @param savetime
      * @return
      */
     List<Transfer> findBeforeSaveTime(Long savetime);
+
+    /**
+     * Get a transfer by messageId.
+     *
+     * @param messageId
+     * @return
+     */
+    Transfer getByMessageId(String messageId);
 
 }
