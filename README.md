@@ -228,6 +228,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - header:
       - key(String): access key of group member
    - param:
+      - receiver(String): userId of the receiver, it's "*" if send to all
       - shares(JSON String, Map\<String, String>): messageId-share Map, it is a JSON String like such format
 ```json
 {
@@ -235,7 +236,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 	"messageId": "shareContent"
 }
 ```
-      - receiver(String): userId of the receiver, it's "*" if send to all
+
    - return:
       - success(boolean)
    -  error:
