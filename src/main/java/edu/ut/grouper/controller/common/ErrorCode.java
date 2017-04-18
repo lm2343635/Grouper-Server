@@ -8,7 +8,7 @@ public enum ErrorCode {
 
     ErrorGroupExsit(1011, "Group id is exist in this server."),
     ErrorGroupRegister(1012, "Register group internel error."),
-    ErrorUserNotInGroup(1031, "This user is not in the group with this access key."),
+    ErrorUserNotMatch(1031, "This access key is not your access key, or you are not member of the group."),
     ErrorGroupInitialized(1041, "This group has been initialized before."),
 
     ErrorAddUser(2011, "Add user internel error."),

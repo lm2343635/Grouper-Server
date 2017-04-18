@@ -40,7 +40,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - method: POST
    - param:
       - accesskey(String): access key of group member
-      - uid(String): userId from facebook
+      - userId(String): userId from facebook
    - return:
       - owner(boolean): this user is owner of the group or not
       - group(GroupBean): group information
@@ -53,7 +53,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
          - threshold(int): recover threshold
    - error:
       - ErrorAccessKey(902): Access key is wrong.
-      - ErrorUserNotInGroup(1031): This user is not in the group with this access key.
+      - ErrorUserNotMatch(1031): This user is not in the group with this access key.
 
 (4)`group/init`
 

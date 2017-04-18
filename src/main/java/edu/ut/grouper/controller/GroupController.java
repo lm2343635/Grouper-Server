@@ -49,14 +49,14 @@ public class GroupController extends ControllerTemplate {
     }
 
     @RequestMapping(value = "/restore", method = RequestMethod.POST)
-    public ResponseEntity restoreServer(String uid, String accesskey) {
+    public ResponseEntity restoreServer(String userId, String accesskey) {
         final GroupBean group = groupManager.authByKey(accesskey);
         if (group == null) {
             return generateBadRequest(ErrorCode.ErrorAccessKey);
         }
         final UserBean user = userManager.authByAccessKey(accesskey);
-        if (!user.getUserId().equals(uid)) {
-            return generateBadRequest(ErrorCode.ErrorUserNotInGroup);
+        if (!user.getUserId().equals(userId)) {
+            return generateBadRequest(ErrorCode.ErrorUserNotMatch);
         }
         return generateOK(new HashMap<String, Object>(){{
             put("owner", group.getOid().equals(user.getUserId()));
