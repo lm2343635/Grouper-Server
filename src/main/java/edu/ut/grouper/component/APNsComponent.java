@@ -4,6 +4,7 @@ package edu.ut.grouper.component;
 import com.notnoop.apns.APNS;
 import com.notnoop.apns.ApnsService;
 import com.notnoop.apns.ApnsServiceBuilder;
+import com.notnoop.apns.PayloadBuilder;
 
 public class APNsComponent {
 
@@ -37,12 +38,15 @@ public class APNsComponent {
         return service;
     }
 
-    public void push(String deviceToken, String alertBody) {
+    public void push(String deviceToken, String alertBody, String category) {
         if (deviceToken == null || deviceToken.equals("")) {
             return;
         }
-        String payload = APNS.newPayload().alertBody(alertBody).sound("default").build();
-        getService().push(deviceToken, payload);
+        PayloadBuilder payload = APNS.newPayload().alertBody(alertBody).sound("default");
+        if (category != null) {
+            payload.category(category);
+        }
+        getService().push(deviceToken, payload.build());
     }
 
 }

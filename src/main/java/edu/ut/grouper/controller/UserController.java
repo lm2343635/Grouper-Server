@@ -70,7 +70,7 @@ public class UserController extends ControllerTemplate {
     }
 
     @RequestMapping(value = "/notify", method = RequestMethod.POST)
-    public ResponseEntity remotePushNotification(@RequestParam String content, @RequestParam String receiver, HttpServletRequest request) {
+    public ResponseEntity remotePushNotification(@RequestParam String content, @RequestParam String receiver, String category, HttpServletRequest request) {
         UserBean userBean = userManager.authByAccessKey(authKey(request));
         if (userBean == null) {
             return generateBadRequest(ErrorCode.ErrorAccessKey);
@@ -80,7 +80,7 @@ public class UserController extends ControllerTemplate {
                 return generateBadRequest(ErrorCode.ErrorPushNoPrivilege);
             }
         }
-        final boolean success = userManager.pushNotificationTo(receiver, content, userBean.getUid());
+        final boolean success = userManager.pushNotificationTo(receiver, content, category, userBean.getUid());
         return generateOK(new HashMap<String, Object>() {{
             put("success", success);
         }});

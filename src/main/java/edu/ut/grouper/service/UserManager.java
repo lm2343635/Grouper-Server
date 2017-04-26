@@ -52,8 +52,9 @@ public interface UserManager {
      *
      * @param receiver
      * @param alertBody
+     * @param category
      * @param uid
      * @return
      */
-    boolean pushNotificationTo(String receiver, String alertBody, String uid);
+    boolean pushNotificationTo(String receiver, String alertBody, String category, String uid);
 }

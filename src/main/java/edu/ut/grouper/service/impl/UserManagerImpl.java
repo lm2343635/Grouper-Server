@@ -99,7 +99,7 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         return new UserBean(user);
     }
 
-    public boolean pushNotificationTo(String receiverUid, String alertBody, String uid) {
+    public boolean pushNotificationTo(String receiverUid, String alertBody, String category, String uid) {
         User user = userDao.get(uid);
         if (user == null) {
             return false;
@@ -111,14 +111,14 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
                 if (reveiver == user) {
                     continue;
                 }
-                apnsComponent.push(reveiver.getDeviceToken(), alertBody);
+                apnsComponent.push(reveiver.getDeviceToken(), alertBody, category);
             }
         } else {
             User receiver = userDao.getByUserIdInGroup(receiverUid, user.getGroup());
             if (receiver == null) {
                 return false;
             }
-            apnsComponent.push(receiver.getDeviceToken(), alertBody);
+            apnsComponent.push(receiver.getDeviceToken(), alertBody, category);
         }
         return true;
     }

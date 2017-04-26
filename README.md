@@ -135,6 +135,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - param: 
       - content(String): message content
       - receiver(String): receiver's userId. Use "*" if notify all group members.
+      - category(String)
    - return:
       - success(boolean)
    - error:
