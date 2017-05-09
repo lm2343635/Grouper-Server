@@ -111,4 +111,12 @@ public class User implements Serializable {
         this.group = group;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof User)) {
+            return false;
+        }
+        User user = (User)obj;
+        return this.uid.equals(user.getUid());
+    }
 }

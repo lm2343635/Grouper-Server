@@ -108,7 +108,7 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         if (receiverUid.equals("*")) {
             for (User reveiver: userDao.findByGroup(user.getGroup())) {
                 // Skip sender himself.
-                if (reveiver == user) {
+                if (reveiver.equals(user)) {
                     continue;
                 }
                 apnsComponent.push(reveiver.getDeviceToken(), alertBody, category);
