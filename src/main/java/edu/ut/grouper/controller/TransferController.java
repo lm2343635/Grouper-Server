@@ -86,9 +86,9 @@ public class TransferController extends ControllerTemplate {
 
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
     public ResponseEntity confirmMessageShare(@RequestParam final List<String> messageId, HttpServletRequest request) {
-
+        final List<String> notExistedMessageIds = transferManager.notExsitedMessageIds(messageId);
         return generateOK(new HashMap<String, Object>() {{
-
+            put("messageIds", notExistedMessageIds);
         }});
     }
 

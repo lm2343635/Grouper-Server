@@ -34,6 +34,13 @@ public interface TransferDao extends CrudDao<Transfer> {
     List<Transfer> findInTids(List<String> tids);
 
     /**
+     *
+     * @param messageIds
+     * @return
+     */
+    List<Transfer> findInMessageIds(List<String> messageIds);
+
+    /**
      * Find transfers before a past save time
      *
      * @param savetime

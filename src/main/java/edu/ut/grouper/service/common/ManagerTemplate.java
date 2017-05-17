@@ -45,4 +45,5 @@ public class ManagerTemplate {
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
+
 }

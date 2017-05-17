@@ -118,4 +118,14 @@ public class TransferManagerImpl extends ManagerTemplate implements TransferMana
         }
         return transfers;
     }
+
+    public List<String> notExsitedMessageIds(List<String> messageIds) {
+        List<String> existedMessagesIds = new ArrayList<String>();
+        for (Transfer transfer : transferDao.findInMessageIds(messageIds)) {
+            existedMessagesIds.add(transfer.getMessageId());
+        }
+        messageIds.removeAll(existedMessagesIds);
+        return messageIds;
+    }
+
 }

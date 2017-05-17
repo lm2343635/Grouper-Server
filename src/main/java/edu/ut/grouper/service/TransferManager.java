@@ -61,4 +61,11 @@ public interface TransferManager {
      */
     List<TransferBean> getSharesContent(List<String> tids);
 
+    /**
+     *
+     * @param messageIds
+     * @return
+     */
+    List<String> notExsitedMessageIds(List<String> messageIds);
+
 }

@@ -222,6 +222,15 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 
 (4)`transfer/confirm`
 
+   - Send messageIds and get messageIds which are not existed in this untrusted server.
+   - method: POST
+   - header:
+      - key(String): access key of group member
+   - param:
+      - messageId(List\<String>): messageId list, submit by messageId=xxx&messageId=xxx&messageId=xxx
+   - return:
+      - messageIds(List\<String>): messageIds which are not existed in this untrusted server
+
 (5)`transfer/reput`
 
    - Reput shares to transfer table

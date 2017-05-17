@@ -45,6 +45,17 @@ public class TransferDaoHibernate extends PageHibernateDaoSupport<Transfer> impl
         });
     }
 
+    public List<Transfer> findInMessageIds(final List<String> messageIds) {
+        final String hql = "from Transfer where messageId in(:messageIds)";
+        return (List<Transfer>) getHibernateTemplate().execute(new HibernateCallback<List<Transfer>>() {
+            public List<Transfer> doInHibernate(Session session) throws HibernateException {
+                Query query = session.createQuery(hql);
+                query.setParameterList("messageIds", messageIds);
+                return query.list();
+            }
+        });
+    }
+
     public List<Transfer> findBeforeSaveTime(Long savetime) {
         String hql = "from Transfer where savetime < ?";
         return (List<Transfer>) getHibernateTemplate().find(hql, savetime);
