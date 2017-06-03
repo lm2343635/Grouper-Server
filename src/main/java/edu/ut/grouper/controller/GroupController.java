@@ -48,21 +48,21 @@ public class GroupController extends ControllerTemplate {
         }});
     }
 
-    @RequestMapping(value = "/restore", method = RequestMethod.POST)
-    public ResponseEntity restoreServer(String userId, String accesskey) {
-        final GroupBean group = groupManager.authByKey(accesskey);
-        if (group == null) {
-            return generateBadRequest(ErrorCode.ErrorAccessKey);
-        }
-        final UserBean user = userManager.authByAccessKey(accesskey);
-        if (!user.getUserId().equals(userId)) {
-            return generateBadRequest(ErrorCode.ErrorUserNotMatch);
-        }
-        return generateOK(new HashMap<String, Object>(){{
-            put("owner", group.getOid().equals(user.getUserId()));
-            put("group", group);
-        }});
-    }
+//    @RequestMapping(value = "/restore", method = RequestMethod.POST)
+//    public ResponseEntity restoreServer(String email, String accesskey) {
+//        final GroupBean group = groupManager.authByKey(accesskey);
+//        if (group == null) {
+//            return generateBadRequest(ErrorCode.ErrorAccessKey);
+//        }
+//        final UserBean user = userManager.authByAccessKey(accesskey);
+//        if (!user.getEmail().equals(email)) {
+//            return generateBadRequest(ErrorCode.ErrorUserNotMatch);
+//        }
+//        return generateOK(new HashMap<String, Object>(){{
+//            put("owner", group.getOwner().getUid().equals(user.getUid()));
+//            put("group", group);
+//        }});
+//    }
 
     @RequestMapping(value = "/init", method = RequestMethod.POST)
     public ResponseEntity initializeGroup(@RequestParam int servers, @RequestParam int threshold, HttpServletRequest request) {

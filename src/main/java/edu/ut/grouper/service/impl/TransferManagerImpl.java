@@ -16,14 +16,14 @@ import java.util.Map;
 public class TransferManagerImpl extends ManagerTemplate implements TransferManager {
 
     @Transactional
-    public PutResult putShare(String accesskey, String share, String receiverId, String messageId) {
+    public PutResult putShare(String accesskey, String share, String receiverNode, String messageId) {
         User sender = userDao.getByAccesskey(accesskey);
         if (sender == null) {
             return PutResult.AccessKeyWrong;
         }
         User receiver = null;
-        if (!receiverId.equals("*") && receiverId != null) {
-            receiver = userDao.getByUserIdInGroup(receiverId, sender.getGroup());
+        if (!receiverNode.equals("*") && receiverNode != null) {
+            receiver = userDao.getByNodeInGroup(receiverNode, sender.getGroup());
             if (receiver == null) {
                 return PutResult.NoReceiverFound;
             }
@@ -44,14 +44,14 @@ public class TransferManagerImpl extends ManagerTemplate implements TransferMana
     }
 
     @Transactional
-    public PutResult reputShare(String accesskey, Map<String, String> shares, String receiverId) {
+    public PutResult reputShare(String accesskey, Map<String, String> shares, String receiverNode) {
         User sender = userDao.getByAccesskey(accesskey);
         if (sender == null) {
             return PutResult.AccessKeyWrong;
         }
         User receiver = null;
-        if (!receiverId.equals("*") && receiverId != null) {
-            receiver = userDao.getByUserIdInGroup(receiverId, sender.getGroup());
+        if (!receiverNode.equals("*") && receiverNode != null) {
+            receiver = userDao.getByNodeInGroup(receiverNode, sender.getGroup());
             if (receiver == null) {
                 return PutResult.NoReceiverFound;
             }

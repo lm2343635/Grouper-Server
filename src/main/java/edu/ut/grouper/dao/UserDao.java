@@ -9,12 +9,12 @@ import java.util.List;
 public interface UserDao extends CrudDao<User> {
 
     /**
-     * Find an user by his userId and group
+     * Find an user by his node identifier and group
      * @param userId
      * @param group
      * @return
      */
-    User getByUserIdInGroup(String userId, Group group);
+    User getByNodeInGroup(String userId, Group group);
 
     /**
      * Find an user by his access key

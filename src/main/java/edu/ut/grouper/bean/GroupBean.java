@@ -9,7 +9,7 @@ public class GroupBean {
     private String name;
     private int members;
     private long createDate;
-    private String oid;
+    private UserBean owner;
     private int servers;
     private int threshold;
 
@@ -53,12 +53,12 @@ public class GroupBean {
         this.createDate = createDate;
     }
 
-    public String getOid() {
-        return oid;
+    public UserBean getOwner() {
+        return owner;
     }
 
-    public void setOid(String oid) {
-        this.oid = oid;
+    public void setOwner(UserBean owner) {
+        this.owner = owner;
     }
 
     public int getServers() {
@@ -83,8 +83,9 @@ public class GroupBean {
         this.name = group.getGname();
         this.members = group.getMembers();
         this.createDate = group.getCreateDate();
-        this.oid = (group.getOwner() == null)? null: group.getOwner().getUserId();
+        this.owner = (group.getOwner() == null)? null: new UserBean(group.getOwner());
         this.servers = (group.getServers() == null)? 0: group.getServers();
         this.threshold = (group.getThreshold() == null)? 0: group.getThreshold();
     }
+
 }

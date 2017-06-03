@@ -16,21 +16,17 @@ import java.util.UUID;
 public class UserManagerImpl extends ManagerTemplate implements UserManager {
 
     @Transactional
-    public String addUser(String userId, String name, String email, String gender, String pictureUrl, String gid, boolean owner) {
+    public String addUser(String node, String gid, boolean owner) {
         Group group = groupDao.getByGroupId(gid);
         if (group == null) {
             return null;
         }
         //Find this user in this group.
-        User user = userDao.getByUserIdInGroup(userId, group);
+        User user = userDao.getByNodeInGroup(node, group);
         //If this user is not found, new it.
         if (user == null) {
             user = new User();
-            user.setUserId(userId);
-            user.setName(name);
-            user.setEmail(email);
-            user.setGender(gender);
-            user.setPictureurl(pictureUrl);
+            user.setNode(node);
             user.setAccesskey(owner? group.getMasterkey(): UUID.randomUUID().toString());
             user.setGroup(group);
             if (userDao.save(user) == null) {
@@ -41,13 +37,6 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
             }
             group.setMembers(group.getMembers() + 1);
             groupDao.update(group);
-        } else {
-            user.setUid(userId);
-            user.setName(name);
-            user.setEmail(email);
-            user.setGender(gender);
-            user.setPictureurl(pictureUrl);
-            userDao.update(user);
         }
         return user.getAccesskey();
     }
@@ -87,25 +76,25 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         return true;
     }
 
-    public UserBean getUserByUserIdInGroup(String userId, String gid) {
+    public UserBean getUserByNodeInGroup(String node, String gid) {
         Group group = groupDao.get(gid);
         if (group == null) {
             return null;
         }
-        User user = userDao.getByUserIdInGroup(userId, group);
+        User user = userDao.getByNodeInGroup(node, group);
         if (user == null) {
             return null;
         }
         return new UserBean(user);
     }
 
-    public boolean pushNotificationTo(String receiverUid, String alertBody, String category, String uid) {
+    public boolean pushNotificationTo(String receiverNode, String alertBody, String category, String uid) {
         User user = userDao.get(uid);
         if (user == null) {
             return false;
         }
         // Push notification to all members except the sender himself if receiver's uid is "*".
-        if (receiverUid.equals("*")) {
+        if (receiverNode.equals("*")) {
             for (User reveiver: userDao.findByGroup(user.getGroup())) {
                 // Skip sender himself.
                 if (reveiver.equals(user)) {
@@ -114,7 +103,7 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
                 apnsComponent.push(reveiver.getDeviceToken(), alertBody, category);
             }
         } else {
-            User receiver = userDao.getByUserIdInGroup(receiverUid, user.getGroup());
+            User receiver = userDao.getByNodeInGroup(receiverNode, user.getGroup());
             if (receiver == null) {
                 return false;
             }

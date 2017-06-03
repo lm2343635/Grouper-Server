@@ -15,19 +15,7 @@ public class User implements Serializable {
     private String uid;
 
     @Column(nullable = false)
-    private String userId;
-
-    @Column
-    private String name;
-
-    @Column
-    private String email;
-
-    @Column
-    private String gender;
-
-    @Column
-    private String pictureurl;
+    private String node;
 
     @Column(nullable = false)
     private String accesskey;
@@ -36,7 +24,7 @@ public class User implements Serializable {
     private String deviceToken;
 
     @ManyToOne
-    @JoinColumn(name = "gid")
+    @JoinColumn(name = "gid", nullable = false)
     private Group group;
 
     public String getUid() {
@@ -47,36 +35,12 @@ public class User implements Serializable {
         this.uid = uid;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getNode() {
+        return node;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setNode(String node) {
+        this.node = node;
     }
 
     public String getAccesskey() {
@@ -85,14 +49,6 @@ public class User implements Serializable {
 
     public void setAccesskey(String accesskey) {
         this.accesskey = accesskey;
-    }
-
-    public String getPictureurl() {
-        return pictureurl;
-    }
-
-    public void setPictureurl(String pictureurl) {
-        this.pictureurl = pictureurl;
     }
 
     public String getDeviceToken() {
@@ -119,4 +75,5 @@ public class User implements Serializable {
         User user = (User)obj;
         return this.uid.equals(user.getUid());
     }
+
 }

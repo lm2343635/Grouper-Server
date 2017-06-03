@@ -5,11 +5,7 @@ import edu.ut.grouper.domain.User;
 public class UserBean {
 
     private String uid;
-    private String userId;
-    private String name;
-    private String email;
-    private String gender;
-    private String picture;
+    private String node;
     private String gid;
 
     public String getUid() {
@@ -20,44 +16,12 @@ public class UserBean {
         this.uid = uid;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getNode() {
+        return node;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setNode(String node) {
+        this.node = node;
     }
 
     public String getGid() {
@@ -70,11 +34,7 @@ public class UserBean {
 
     public UserBean(User user) {
         this.uid = user.getUid();
-        this.userId = user.getUserId();
-        this.name = user.getName();
-        this.email = user.getEmail();
-        this.gender = user.getGender();
-        this.picture = user.getPictureurl();
+        this.node = user.getNode();
         this.gid = user.getGroup().getGid();
     }
 }
