@@ -62,6 +62,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - param:
       - server(int): the number of servers
       - threshold(int): recover threshold
+      - interval(int): delection interval time of transfer object
    - return:
       - success(boolean)
    - error:
@@ -77,11 +78,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - header:
       - key(String): master key
    - param: 
-      - userId(String) : userId from facebook
-      - name(String)
-      - email(String)
-      - gender(String)
-      - pictureUrl(String): the picture url of user's avatar
+      - node(String) : node identifier
       - owner(boolean): this user is group owner or not
    - return:
       - accesskey(String): access key for this new user
@@ -89,24 +86,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
       - ErrorMasterKey(901): Master key is wrong.
       - ErrorAddUser(2011): Add user internel error.
 
-(2)`user/list`
-
-   - Get all users' information of a group.
-   - method: GET
-   - header:
-      - key(String): master key of this group or access key of group member
-   - return:
-      - users(List<UserBean>): user list of this group
-         - userId(String): userId from facebook
-         - name(String)
-         - email(String)
-         - gender(String)
-         - url(String): the picture url of user's avatar
-         - gid(String): group id of this user's group
-   - error:
-      - ErrorAccessKey(903): Master key or access key is wrong.
-
-(3)`user/state`
+(2)`user/state`
 
    - Check server state.
    - method: GET
@@ -115,7 +95,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - return:
       - ok(boolean): user can access this user or not
 
-(4)`user/deviceToken`
+(3)`user/deviceToken`
 
    - Update device's device token of a user.
    - method: POST
@@ -126,7 +106,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - return:
       - success(boolean)
 
-(5)`user/notify`
+(4)`user/notify`
 
    - Notify a receiver with a message.
    - method: POST

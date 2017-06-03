@@ -6,6 +6,7 @@ public interface GroupManager {
 
     /**
      * Is group id exist in database.
+     *
      * @param id
      * @return
      */
@@ -13,7 +14,8 @@ public interface GroupManager {
 
     /**
      * Register a new group in this server.
-     * @param id Group Id
+     *
+     * @param id   Group Id
      * @param name Group Name
      * @return
      */
@@ -21,6 +23,7 @@ public interface GroupManager {
 
     /**
      * Find a group by its master key
+     *
      * @param masterkey
      * @return
      */
@@ -28,17 +31,21 @@ public interface GroupManager {
 
     /**
      * Find a group by its master key
+     *
      * @param key
      * @return
      */
     GroupBean authByKey(String key);
 
     /**
-     * Initialize a group by submitting server count and threshold server count for recovering.
+     * Initialize a group by submitting server count, threshold and delection interval.
+     *
      * @param gid
      * @param servers
      * @param threshold
+     * @param interval
      * @return
      */
-    boolean initializeGroup(String gid, int servers, int threshold);
+    boolean initializeGroup(String gid, int servers, int threshold, int interval);
+
 }

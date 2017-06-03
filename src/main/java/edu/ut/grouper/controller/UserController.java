@@ -36,17 +36,6 @@ public class UserController extends ControllerTemplate {
         }});
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ResponseEntity getGroupList(HttpServletRequest request) {
-        final List<UserBean> users = userManager.getGroupListByKey(authKey(request));
-        if (users == null) {
-            return generateBadRequest(ErrorCode.ErrorKeyWrong);
-        }
-        return generateOK(new HashMap<String, Object>(){{
-            put("users", users);
-        }});
-    }
-
     @RequestMapping(value = "/state", method = RequestMethod.GET)
     public ResponseEntity checkServerState(HttpServletRequest request) {
         final boolean state = userManager.authByAccessKey(authKey(request)) != null;

@@ -35,6 +35,9 @@ public class Group implements Serializable {
     @Column
     private Integer threshold;
 
+    @Column(name = "intervalTime")
+    private Integer interval;
+
     @ManyToOne
     @JoinColumn(name = "owner", unique = true)
     private User owner;
@@ -110,4 +113,13 @@ public class Group implements Serializable {
     public void setThreshold(Integer threshold) {
         this.threshold = threshold;
     }
+
+    public Integer getInterval() {
+        return interval;
+    }
+
+    public void setInterval(Integer interval) {
+        this.interval = interval;
+    }
+
 }

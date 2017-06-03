@@ -21,7 +21,6 @@ import java.util.HashMap;
 @RequestMapping("/group")
 public class GroupController extends ControllerTemplate {
 
-
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity registerGroup(@RequestParam String id, @RequestParam String name) {
         if (groupManager.isGroupExist(id)) {
@@ -31,7 +30,7 @@ public class GroupController extends ControllerTemplate {
         if (masterkey == null) {
             return generateBadRequest(ErrorCode.ErrorGroupRegister);
         }
-        return generateOK(new HashMap<String, Object>(){{
+        return generateOK(new HashMap<String, Object>() {{
             put("masterkey", masterkey);
         }});
     }
@@ -43,7 +42,7 @@ public class GroupController extends ControllerTemplate {
         if (group == null) {
             return generateBadRequest(ErrorCode.ErrorKeyWrong);
         }
-        return generateOK(new HashMap<String, Object>(){{
+        return generateOK(new HashMap<String, Object>() {{
             put("group", group);
         }});
     }
@@ -65,16 +64,16 @@ public class GroupController extends ControllerTemplate {
 //    }
 
     @RequestMapping(value = "/init", method = RequestMethod.POST)
-    public ResponseEntity initializeGroup(@RequestParam int servers, @RequestParam int threshold, HttpServletRequest request) {
+    public ResponseEntity initializeGroup(@RequestParam int servers, @RequestParam int threshold, @RequestParam int interval, HttpServletRequest request) {
         String key = request.getHeader("key");
         GroupBean group = groupManager.authByMasterkey(key);
         if (group == null) {
             return generateBadRequest(ErrorCode.ErrorMasterKey);
         }
-        if (!groupManager.initializeGroup(group.getGid(), servers, threshold)) {
+        if (!groupManager.initializeGroup(group.getGid(), servers, interval, threshold)) {
             return generateBadRequest(ErrorCode.ErrorGroupInitialized);
         }
-        return generateOK(new HashMap<String, Object>(){{
+        return generateOK(new HashMap<String, Object>() {{
             put("success", true);
         }});
     }

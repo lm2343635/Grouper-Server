@@ -12,6 +12,7 @@ public class GroupBean {
     private UserBean owner;
     private int servers;
     private int threshold;
+    private int interval;
 
     public String getGid() {
         return gid;
@@ -77,15 +78,24 @@ public class GroupBean {
         this.threshold = threshold;
     }
 
+    public int getInterval() {
+        return interval;
+    }
+
+    public void setInterval(int interval) {
+        this.interval = interval;
+    }
+
     public GroupBean(Group group) {
         this.gid = group.getGid();
         this.id = group.getId();
         this.name = group.getGname();
         this.members = group.getMembers();
         this.createDate = group.getCreateDate();
-        this.owner = (group.getOwner() == null)? null: new UserBean(group.getOwner());
-        this.servers = (group.getServers() == null)? 0: group.getServers();
-        this.threshold = (group.getThreshold() == null)? 0: group.getThreshold();
+        this.owner = (group.getOwner() == null) ? null : new UserBean(group.getOwner());
+        this.servers = (group.getServers() == null) ? 0 : group.getServers();
+        this.threshold = (group.getThreshold() == null) ? 0 : group.getThreshold();
+        this.interval = (group.getInterval() == null) ? 0 : group.getInterval();
     }
 
 }
