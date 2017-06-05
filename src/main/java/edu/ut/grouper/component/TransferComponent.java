@@ -1,6 +1,8 @@
 package edu.ut.grouper.component;
 
+import edu.ut.grouper.dao.GroupDao;
 import edu.ut.grouper.dao.TransferDao;
+import edu.ut.grouper.domain.Group;
 import edu.ut.grouper.domain.Transfer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -18,14 +20,28 @@ public class TransferComponent {
     @Autowired
     private TransferDao transferDao;
 
-    // Check and delete transfer created 1 hour ago every minute.
+    @Autowired
+    private GroupDao groupDao;
+
+    /**
+     * Check and delete transfer objects every minute.
+     */
     @Scheduled(fixedRate = 1000 * 60)
     @Transactional
     public void removeTansfers() {
-        long savetime = System.currentTimeMillis() / 1000 - 3600;
-        List<Transfer> transfers = transferDao.findBeforeSaveTime(savetime);
-        for (Transfer transfer : transfers) {
-            transferDao.delete(transfer);
+        // Delete transfer by interval of every group.
+        for (Group group : groupDao.findAll()) {
+            // Skip this group if it has not been initialized.
+            if (group.getInterval() == null) {
+                continue;
+            }
+            // Unit of interval time is minute. Use group.getInterval() * 60 here.
+            long savetime = System.currentTimeMillis() / 1000L - group.getInterval() * 60;
+            List<Transfer> transfers = transferDao.findBeforeSaveTimeInGroup(savetime, group);
+            for (Transfer transfer : transfers) {
+                transferDao.delete(transfer);
+            }
         }
     }
+
 }

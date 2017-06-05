@@ -7,6 +7,7 @@ public interface GroupDao extends CrudDao<Group> {
 
     /**
      * Get a group by master key
+     *
      * @param masterkey
      * @return
      */
@@ -14,8 +15,10 @@ public interface GroupDao extends CrudDao<Group> {
 
     /**
      * Get a group by id
+     *
      * @param id
      * @return
      */
     Group getByGroupId(String id);
+
 }

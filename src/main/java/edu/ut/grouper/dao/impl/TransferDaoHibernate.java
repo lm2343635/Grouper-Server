@@ -56,9 +56,9 @@ public class TransferDaoHibernate extends PageHibernateDaoSupport<Transfer> impl
         });
     }
 
-    public List<Transfer> findBeforeSaveTime(Long savetime) {
-        String hql = "from Transfer where savetime < ?";
-        return (List<Transfer>) getHibernateTemplate().find(hql, savetime);
+    public List<Transfer> findBeforeSaveTimeInGroup(Long savetime, Group group) {
+        String hql = "from Transfer where savetime < ? and sender.group = ?";
+        return (List<Transfer>) getHibernateTemplate().find(hql, savetime, group);
     }
 
     public Transfer getByMessageId(String messageId) {

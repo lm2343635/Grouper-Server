@@ -27,7 +27,7 @@ public class Group implements Serializable {
     private String masterkey;
 
     @Column(nullable = false)
-    private Long createDate;
+    private Long createAt;
 
     @Column
     private Integer servers;
@@ -82,12 +82,12 @@ public class Group implements Serializable {
         this.masterkey = masterkey;
     }
 
-    public Long getCreateDate() {
-        return createDate;
+    public Long getCreateAt() {
+        return createAt;
     }
 
-    public void setCreateDate(Long createDate) {
-        this.createDate = createDate;
+    public void setCreateAt(Long createAt) {
+        this.createAt = createAt;
     }
 
     public User getOwner() {

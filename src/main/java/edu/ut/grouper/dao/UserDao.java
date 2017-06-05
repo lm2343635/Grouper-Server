@@ -10,6 +10,7 @@ public interface UserDao extends CrudDao<User> {
 
     /**
      * Find an user by his node identifier and group
+     *
      * @param userId
      * @param group
      * @return
@@ -18,6 +19,7 @@ public interface UserDao extends CrudDao<User> {
 
     /**
      * Find an user by his access key
+     *
      * @param accesskey
      * @return
      */
@@ -25,6 +27,7 @@ public interface UserDao extends CrudDao<User> {
 
     /**
      * Find all users in a group.
+     *
      * @param group
      * @return
      */

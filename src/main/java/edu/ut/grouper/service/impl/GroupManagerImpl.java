@@ -24,7 +24,7 @@ public class GroupManagerImpl extends ManagerTemplate implements GroupManager {
         group.setId(id);
         group.setMasterkey(UUID.randomUUID().toString());
         group.setMembers(0);
-        group.setCreateDate(System.currentTimeMillis() / 1000L);
+        group.setCreateAt(System.currentTimeMillis() / 1000L);
         if (groupDao.save(group) != null) {
             return group.getMasterkey();
         }
