@@ -95,16 +95,19 @@ public class UserManagerImpl extends ManagerTemplate implements UserManager {
         }
         // Push notification to all members except the sender himself if receiver's uid is "*".
         if (receiverNode.equals("*")) {
-            for (User reveiver: userDao.findByGroup(user.getGroup())) {
+            for (User receiver: userDao.findByGroup(user.getGroup())) {
                 // Skip sender himself.
-                if (reveiver.equals(user)) {
+                if (receiver.equals(user) || receiver.getDeviceToken() == null || receiver.getDeviceToken().equals("")) {
                     continue;
                 }
-                apnsComponent.push(reveiver.getDeviceToken(), alertBody, category);
+                apnsComponent.push(receiver.getDeviceToken(), alertBody, category);
             }
         } else {
             User receiver = userDao.getByNodeInGroup(receiverNode, user.getGroup());
             if (receiver == null) {
+                return false;
+            }
+            if (receiver.getDeviceToken() == null || receiver.getDeviceToken().equals("")) {
                 return false;
             }
             apnsComponent.push(receiver.getDeviceToken(), alertBody, category);

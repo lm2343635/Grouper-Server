@@ -27,10 +27,11 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
          - id(String): group id
          - name(String): group name
          - members(int): number of group members
-         - createDate(long)
-         - oid(String): userId from facebook of group owner
+         - createAt(long)
+         - owner(UserBean): group owner
          - servers(int): number of untrusted servers
          - threshold(int): recover threshold
+         - interval(int): delection interval time
    - error:
       - ErrorKeyWrong(903): Cannot get group info, master key or access key is wrong.
 
@@ -62,7 +63,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - param:
       - server(int): the number of servers
       - threshold(int): recover threshold
-      - interval(int): delection interval time of transfer object
+      - interval(int): delection interval time
    - return:
       - success(boolean)
    - error:
@@ -114,7 +115,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
       - key(String): access key of group member
    - param: 
       - content(String): message content
-      - receiver(String): receiver's userId. Use "*" if notify all group members.
+      - receiver(String): node identifier of receiver, use "*" if notify all group members.
       - category(String)
    - return:
       - success(boolean)
@@ -132,7 +133,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
       - key(String): access key of group member
    - param:
       - share(String): the content of a share
-      - receiver(String): userId of the receiver, it's "*" if send to all
+      - receiver(String): node identifier of receiver, user "*" if send to all
       - messageId(String): messageId of the message which can be recovered by this share
    - return:
       - success(boolean)
@@ -218,7 +219,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - header:
       - key(String): access key of group member
    - param:
-      - receiver(String): userId of the receiver, it's "*" if send to all
+      - receiver(String): node identifier of receiver, user "*" if send to all
       - shares(JSON String, Map\<String, String>): messageId-share Map, it is a JSON String like such format
 ```json
 {
