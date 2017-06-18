@@ -70,7 +70,7 @@ public class GroupController extends ControllerTemplate {
         if (group == null) {
             return generateBadRequest(ErrorCode.ErrorMasterKey);
         }
-        if (!groupManager.initializeGroup(group.getGid(), servers, interval, threshold)) {
+        if (!groupManager.initializeGroup(group.getGid(), servers, threshold, interval)) {
             return generateBadRequest(ErrorCode.ErrorGroupInitialized);
         }
         return generateOK(new HashMap<String, Object>() {{
