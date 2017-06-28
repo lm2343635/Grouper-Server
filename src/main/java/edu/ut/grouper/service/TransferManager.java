@@ -8,34 +8,14 @@ import java.util.Map;
 
 public interface TransferManager {
 
-    public enum PutResult {
-        AccessKeyWrong,
-        NoReceiverFound,
-        SendSelfForbidden,
-        InternelError,
-        Success
-    }
-
     /**
      * Put a share into transfer table.
      *
      * @param accesskey
-     * @param share
-     * @param receiver
-     * @param messageId
+     * @param shares
      * @return
      */
-    PutResult putShare(String accesskey, String share, String receiver, String messageId);
-
-    /**
-     * Reput shares into transfer table.
-     *
-     * @param accesskey
-     * @param shares    Shares is a map, it contains messageId and share content like {"messageId": "shareContent"}
-     * @param receiver
-     * @return
-     */
-    PutResult reputShare(String accesskey, Map<String, String> shares, String receiver);
+    int putShares(String accesskey, String shares);
 
     /**
      * Get a share list by access key, only get share for this user or all users.

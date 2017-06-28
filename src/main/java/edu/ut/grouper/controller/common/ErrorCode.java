@@ -14,10 +14,7 @@ public enum ErrorCode {
     ErrorAddUser(2011, "Add user internel error."),
     ErrorPushNoPrivilege(2051, "This user has no privilege to push remote notification to the receiver."),
 
-    ErrorNoReceiverFound(3011, "Cannot find receiver in this group by this user id."),
-    ErrorPutShare(3012, "Put share internel error."),
-    ErrorSendSelfForbidden(3013, "Cannot send share to yourself."),
-    ErrorMessageIdShareFormat(3051, "The format of Map<messageId, shareContent> is worong, so that server cannot parse this map.");
+    ErrorNoReceiverFound(3011, "Cannot find receiver in this group by this user id.");
 
     public int code;
     public String message;

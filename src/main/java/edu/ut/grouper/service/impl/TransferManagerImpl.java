@@ -5,6 +5,8 @@ import edu.ut.grouper.domain.Transfer;
 import edu.ut.grouper.domain.User;
 import edu.ut.grouper.service.TransferManager;
 import edu.ut.grouper.service.common.ManagerTemplate;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,70 +18,48 @@ import java.util.Map;
 public class TransferManagerImpl extends ManagerTemplate implements TransferManager {
 
     @Transactional
-    public PutResult putShare(String accesskey, String share, String receiverNode, String messageId) {
+    public int putShares(String accesskey, String shares) {
         User sender = userDao.getByAccesskey(accesskey);
         if (sender == null) {
-            return PutResult.AccessKeyWrong;
+            return -1;
         }
-        User receiver = null;
-        if (!receiverNode.equals("*") && receiverNode != null) {
-            receiver = userDao.getByNodeInGroup(receiverNode, sender.getGroup());
-            if (receiver == null) {
-                return PutResult.NoReceiverFound;
-            }
-            if (receiver == sender) {
-                return PutResult.SendSelfForbidden;
-            }
-        }
-        Transfer transfer = new Transfer();
-        transfer.setShare(share);
-        transfer.setReceiver(receiver);
-        transfer.setSender(sender);
-        transfer.setSavetime(System.currentTimeMillis() / 1000L);
-        transfer.setMessageId(messageId);
-        if (transferDao.save(transfer) == null) {
-            return PutResult.InternelError;
-        }
-        return PutResult.Success;
-    }
+        int success = 0;
+        JSONArray shareArray = JSONArray.fromObject(shares);
+        for (int i = 0; i < shareArray.size(); i++) {
+            JSONObject shareObject = shareArray.getJSONObject(i);
+            String share = shareObject.getString("share");
+            String messageId = shareObject.getString("messageId");
+            String receiverNode = shareObject.getString("receiver");
 
-    @Transactional
-    public PutResult reputShare(String accesskey, Map<String, String> shares, String receiverNode) {
-        User sender = userDao.getByAccesskey(accesskey);
-        if (sender == null) {
-            return PutResult.AccessKeyWrong;
-        }
-        User receiver = null;
-        if (!receiverNode.equals("*") && receiverNode != null) {
-            receiver = userDao.getByNodeInGroup(receiverNode, sender.getGroup());
-            if (receiver == null) {
-                return PutResult.NoReceiverFound;
+            User receiver = null;
+            if (!receiverNode.equals("*") && receiverNode != null) {
+                receiver = userDao.getByNodeInGroup(receiverNode, sender.getGroup());
+                // If receiver cannot be found or receiver is same with sender, skip this share.
+                if (receiver == null || receiver == sender) {
+                    continue;
+                }
             }
-            if (receiver == sender) {
-                return PutResult.SendSelfForbidden;
-            }
-        }
-        for (String messageId : shares.keySet()) {
-            // Check is transfer object is existed or not by messageId.
+
             Transfer transfer = transferDao.getByMessageId(messageId);
             if (transfer != null) {
                 // Update share content if transfer object is existed.
-                transfer.setShare(shares.get(messageId));
+                transfer.setShare(share);
                 // Update savetime.
                 transfer.setSavetime(System.currentTimeMillis() / 1000L);
                 transferDao.update(transfer);
             } else {
                 // Create a new transfer object if it not existed.
                 transfer = new Transfer();
-                transfer.setShare(shares.get(messageId));
+                transfer.setShare(share);
                 transfer.setReceiver(receiver);
                 transfer.setSender(sender);
                 transfer.setSavetime(System.currentTimeMillis() / 1000L);
                 transfer.setMessageId(messageId);
                 transferDao.save(transfer);
             }
+            success++;
         }
-        return PutResult.Success;
+        return success;
     }
 
     public List<String> listShare(String accesskey) {

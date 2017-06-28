@@ -24,15 +24,14 @@ import java.util.Map;
 public class TransferController extends ControllerTemplate {
 
     @RequestMapping(value = "/put", method = RequestMethod.POST)
-    public ResponseEntity putShare(@RequestParam String share, @RequestParam String receiver, @RequestParam String messageId, HttpServletRequest request) {
+    public ResponseEntity putShare(@RequestParam String shares, HttpServletRequest request) {
         String key = request.getHeader("key");
-        TransferManager.PutResult result = transferManager.putShare(key, share, receiver, messageId);
-        ResponseEntity badRequest = generateBadRequestByPutResult(result);
-        if (badRequest != null) {
-            return badRequest;
+        final int succuess = transferManager.putShares(key, shares);
+        if (succuess == -1) {
+            return generateBadRequest(ErrorCode.ErrorAccessKey);
         }
         return generateOK(new HashMap<String, Object>() {{
-            put("success", true);
+            put("success", succuess);
         }});
     }
 
@@ -90,43 +89,6 @@ public class TransferController extends ControllerTemplate {
         return generateOK(new HashMap<String, Object>() {{
             put("messageIds", notExistedMessageIds);
         }});
-    }
-
-    @RequestMapping(value = "/reput", method = RequestMethod.POST)
-    public ResponseEntity reputShare(@RequestParam String shares, @RequestParam String receiver, HttpServletRequest request) {
-        Map<String, String> sharesMap = null;
-        try {
-            sharesMap = new ObjectMapper().readValue(shares, HashMap.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (sharesMap == null) {
-            return generateBadRequest(ErrorCode.ErrorMessageIdShareFormat);
-        }
-        String key = request.getHeader("key");
-        TransferManager.PutResult result = transferManager.reputShare(key, sharesMap, receiver);
-        ResponseEntity badRequest = generateBadRequestByPutResult(result);
-        if (badRequest != null) {
-            return badRequest;
-        }
-        return generateOK(new HashMap<String, Object>() {{
-            put("success", true);
-        }});
-    }
-
-    private ResponseEntity generateBadRequestByPutResult(TransferManager.PutResult result) {
-        switch (result) {
-            case AccessKeyWrong:
-                return generateBadRequest(ErrorCode.ErrorAccessKey);
-            case NoReceiverFound:
-                return generateBadRequest(ErrorCode.ErrorNoReceiverFound);
-            case SendSelfForbidden:
-                return generateBadRequest(ErrorCode.ErrorSendSelfForbidden);
-            case InternelError:
-                return generateBadRequest(ErrorCode.ErrorPutShare);
-            default:
-                return null;
-        }
     }
 
 }
