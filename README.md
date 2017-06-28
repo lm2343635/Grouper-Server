@@ -132,16 +132,26 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - header:
       - key(String): access key of group member
    - param:
-      - share(String): the content of a share
-      - receiver(String): node identifier of receiver, user "*" if send to all
-      - messageId(String): messageId of the message which can be recovered by this share
+      - shares(String): JSON array of share, it should be such format:
+         - share(String): the content of a share
+         - receiver(String): node identifier of receiver, user "*" if send to all
+         - messageId(String): messageId of the message which can be recovered by this share
+```json
+[{
+	"share": "",
+	"receiver": ""
+	"messageId": ""
+}, {
+	"share": "",
+	"receiver": ""
+	"messageId": ""
+}]
+```
+      
    - return:
-      - success(boolean)
+      - success(int): the number of shares which are save successfully
    -  error:
       - ErrorAccessKey(902): Access key is wrong.
-      - ErrorNoReceiverFound(3011): Cannot find receiver in this group by this userId.
-      - ErrorPutShare(3012): Put share internal error.
-      - ErrorSendSelfForbidden(3013): Cannot send share to yourself.
 
 (2)`transfer/list`
 
@@ -211,28 +221,3 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
       - messageId(List\<String>): messageId list, submit by messageId=xxx&messageId=xxx&messageId=xxx
    - return:
       - messageIds(List\<String>): messageIds which are not existed in this untrusted server
-
-(5)`transfer/reput`
-
-   - Reput shares to transfer table
-   - method: POST
-   - header:
-      - key(String): access key of group member
-   - param:
-      - receiver(String): node identifier of receiver, user "*" if send to all
-      - shares(JSON String, Map\<String, String>): messageId-share Map, it is a JSON String like such format
-```json
-{
-	"messageId": "shareContent",
-	"messageId": "shareContent"
-}
-```
-
-   - return:
-      - success(boolean)
-   -  error:
-      - ErrorAccessKey(902): Access key is wrong.
-      - ErrorNoReceiverFound(3011): Cannot find receiver in this group by this userId.
-      - ErrorPutShare(3012): Put share internal error.
-      - ErrorSendSelfForbidden(3013): Cannot send share to yourself.
-      - ErrorMessageIdShareFormat(3051): The format of Map<messageId, shareContent> is worong, so that server cannot parse this map.
