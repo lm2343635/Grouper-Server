@@ -139,11 +139,11 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 ```json
 [{
 	"share": "",
-	"receiver": ""
+	"receiver": "",
 	"messageId": ""
 }, {
 	"share": "",
-	"receiver": ""
+	"receiver": "",
 	"messageId": ""
 }]
 ```
