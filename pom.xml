@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.ut</groupId>
-    <artifactId>grouper-server</artifactId>
+    <artifactId>grouper</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
     <name>Grouper Maven Webapp</name>
