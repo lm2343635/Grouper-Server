@@ -12,6 +12,7 @@ do
     mkdir $deployPath
     cp -rf * $deployPath
     sed -i "s/grouper/grouper${index}/g" "${deployPath}/WEB-INF/config.properties"
-    rm "${deployPath}/*.sh"
-    rm "${deployPath}/*.sql"
+    rm "${deployPath}/deploy.sh"
+    rm "${deployPath}/db.sh"
+    rm "${deployPath}/grouper.sql"
 done
