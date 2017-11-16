@@ -61,8 +61,9 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - Initialize a group by submitting the number of servers and recover threshold.
    - method: POST
    - param:
-      - server(int): the number of servers
-      - threshold(int): recover threshold
+      - server(int): the number of servers, the parameter n in f(k, n, s)
+      - threshold(int): recover threshold, the parameter k in f(k, n, s)
+      - safe(int): the number of safe servers, the parameter s in f(k, n, s)
       - interval(int): delection interval time
    - return:
       - success(boolean)
