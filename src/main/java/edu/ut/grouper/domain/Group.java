@@ -35,6 +35,9 @@ public class Group implements Serializable {
     @Column
     private Integer threshold;
 
+    @Column
+    private Integer safe;
+
     @Column(name = "intervalTime")
     private Integer interval;
 
@@ -104,6 +107,14 @@ public class Group implements Serializable {
 
     public void setServers(Integer servers) {
         this.servers = servers;
+    }
+
+    public Integer getSafe() {
+        return safe;
+    }
+
+    public void setSafe(Integer safe) {
+        this.safe = safe;
     }
 
     public Integer getThreshold() {

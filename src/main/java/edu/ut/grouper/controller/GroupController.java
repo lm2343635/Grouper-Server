@@ -64,13 +64,14 @@ public class GroupController extends ControllerTemplate {
 //    }
 
     @RequestMapping(value = "/init", method = RequestMethod.POST)
-    public ResponseEntity initializeGroup(@RequestParam int servers, @RequestParam int threshold, @RequestParam int interval, HttpServletRequest request) {
+    public ResponseEntity initializeGroup(@RequestParam int servers, @RequestParam int threshold,
+                                          @RequestParam int safe, @RequestParam int interval, HttpServletRequest request) {
         String key = request.getHeader("key");
         GroupBean group = groupManager.authByMasterkey(key);
         if (group == null) {
             return generateBadRequest(ErrorCode.ErrorMasterKey);
         }
-        if (!groupManager.initializeGroup(group.getGid(), servers, threshold, interval)) {
+        if (!groupManager.initializeGroup(group.getGid(), servers, threshold, safe, interval)) {
             return generateBadRequest(ErrorCode.ErrorGroupInitialized);
         }
         return generateOK(new HashMap<String, Object>() {{

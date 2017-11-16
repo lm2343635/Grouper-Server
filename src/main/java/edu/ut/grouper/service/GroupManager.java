@@ -43,9 +43,10 @@ public interface GroupManager {
      * @param gid
      * @param servers
      * @param threshold
+     * @param safe
      * @param interval
      * @return
      */
-    boolean initializeGroup(String gid, int servers, int threshold, int interval);
+    boolean initializeGroup(String gid, int servers, int threshold, int safe, int interval);
 
 }

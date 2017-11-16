@@ -52,7 +52,7 @@ public class GroupManagerImpl extends ManagerTemplate implements GroupManager {
     }
 
     @Transactional
-    public boolean initializeGroup(String gid, int servers, int threshold, int interval) {
+    public boolean initializeGroup(String gid, int servers, int threshold, int safe, int interval) {
         Group group = groupDao.get(gid);
         if (group == null) {
             return false;
@@ -62,6 +62,7 @@ public class GroupManagerImpl extends ManagerTemplate implements GroupManager {
         }
         group.setServers(servers);
         group.setThreshold(threshold);
+        group.setSafe(safe);
         group.setInterval(interval);
         groupDao.update(group);
         return true;
