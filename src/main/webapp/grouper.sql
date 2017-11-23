@@ -7,17 +7,16 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `grouper_group`;
 CREATE TABLE `grouper_group` (
   `gid` varchar(255) NOT NULL,
-  `createDate` bigint(20) NOT NULL,
+  `createAt` bigint(20) NOT NULL,
   `gname` varchar(255) NOT NULL,
   `id` varchar(255) NOT NULL,
   `intervalTime` int(11) DEFAULT NULL,
   `masterkey` varchar(255) NOT NULL,
   `members` int(11) NOT NULL,
+  `safe` int(11) DEFAULT NULL,
   `servers` int(11) DEFAULT NULL,
   `threshold` int(11) DEFAULT NULL,
   `owner` varchar(255) DEFAULT NULL,
-  `createAt` bigint(20) NOT NULL,
-  `safe` int(11) DEFAULT NULL,
   PRIMARY KEY (`gid`),
   UNIQUE KEY `UK_sqgv8vcr0kl71p8djh6097wtx` (`owner`),
   CONSTRAINT `FK_sqgv8vcr0kl71p8djh6097wtx` FOREIGN KEY (`owner`) REFERENCES `grouper_user` (`uid`)
