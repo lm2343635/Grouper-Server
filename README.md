@@ -5,13 +5,13 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 
 (1)`group/register`
    
-   - Register a new group in this untrusted server.
+   - Register a new group in an untrusted server.
    - method: POST
    - param: 
       - id(String): group id
       - name(String): group name
    - return:
-      - masterkey(String): master key for group creator
+      - masterkey(String): master key for the group owner
    - error:
       - ErrorGroupExsit(1011): Group id is exist in this server.
       - ErrorGroupRegister(1012): Register group error.
@@ -21,7 +21,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - Get group information.
    - method: GET
    - header:
-      - key(String): master key of this group or access key of group member
+      - key(String): master key of this group or access key of the group member
    - return:
       - group(GroupBean): group information
          - id(String): group id
@@ -58,7 +58,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 
 (4)`group/init`
 
-   - Initialize a group by submitting the number of servers and recover threshold.
+   - Initialize a group by submitting the parameters in the extended secret sharing scheme f(k, n, s) and the TTL.
    - method: POST
    - param:
       - server(int): the number of servers, the parameter n in f(k, n, s)
@@ -75,7 +75,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 
 (1)`user/add`
 
-   - Add a new user in this untrusted server.
+   - Add a new user in the untrusted server by the group owner.
    - method: POST
    - header:
       - key(String): master key
@@ -90,19 +90,19 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 
 (2)`user/state`
 
-   - Check server state.
+   - Check server state.
    - method: GET
    - header:
-      - key(String): access key of group member
+      - key(String): access key of the group member
    - return:
       - ok(boolean): user can access this user or not
 
 (3)`user/deviceToken`
 
-   - Update device's device token of a user.
+   - Update the device token of the device by a group member.
    - method: POST
    - header:
-      - key(String): access key of group member
+      - key(String): access key of the group member
    - param: 
       - deviceToken(String): device token from APNs server
    - return:
@@ -110,7 +110,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 
 (4)`user/notify`
 
-   - Notify a receiver with a message.
+   - Send a remote notification to a group member.
    - method: POST
    - header:
       - key(String): access key of group member
