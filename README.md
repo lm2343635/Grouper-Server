@@ -1,4 +1,68 @@
-# Grouper's API Document
+# Grouper's Web Service
+
+## Remote Notification Certificate
+
+To push a remote notification to iOS devices, the developer should prepare a p12 certificate file as follows.
+
+### 1. Create a CSR file.
+
+In the Applications folder on your Mac, open the Utilities folder and launch Keychain Access.
+
+Within the Keychain Access drop down menu, select Keychain Access > Certificate Assistant > Request a Certificate from a Certificate Authority.
+
+- In the Certificate Information window, enter the following information:
+	- In the User Email Address field, enter your email address.
+	- In the Common Name field, create a name for your private key (e.g., John Doe Dev Key).
+	- The CA Email Address field should be left empty.
+	- In the "Request is" group, select the "Saved to disk" option.
+- Click Continue within Keychain Access to complete the CSR generating process.
+
+### 2. Apply aps.cer file
+
+- Upload the CertificateSigningRequest.certSigningRequest file generated as describe in Step 1 to https://developer.apple.com/ios/manage/certificates/team/index.action.
+- Apply a file named aps.cer for your application
+
+### 3. Export key.p12 file
+
+- Click the aps.cer file and find it in the Keychain Access application.
+- Select the private key, the name of the private key is same as the **Common Name field** when you created the CSR file.
+- Export the priviate key as a key.p12 file.
+- Remember the password of this key.p12 file.
+
+### 4. Generate aps.p12 file
+
+- Put the aps.cer and key.p12 files into a same folder.
+- Generate aps.pem file
+
+```shell
+$ openssl x509 -in aps.cer -inform DER -out aps.pem -outform PEM
+```
+- Generate key.pem file. 
+	- Input the password of the key.p12 file
+	- Input a new password for the key.pem file.
+
+```shell
+$ openssl pkcs12 -nocerts -out key.pem -in key.p12
+Enter Import Password:
+MAC verified OK
+Enter PEM pass phrase:
+Verifying - Enter PEM pass phrase:
+```
+
+- Generate aps.p12 file. 
+	- Input the password of the key.pem file
+	- Input a new password for the aps.p12 file.
+
+```shell
+$ openssl pkcs12 -export -in aps.pem -inkey key.pem -name "push" -out aps.p12
+Enter pass phrase for key.pem:
+Enter Export Password:
+Verifying - Enter Export Password:$
+```
+
+
+## API Document
+
 This is the REST API document of Grouper Web service. Grouper is a framwework for creating mobile applications based on data syncrhonization using multiple unstrusted servers.
 
 ### 1. Group
