@@ -1,10 +1,10 @@
 # Grouper's Web Service
 
-## Remote Notification Certificate
+### Remote Notification Certificate
 
 To push a remote notification to iOS devices, the developer should prepare a p12 certificate file as follows.
 
-### 1. Create a CSR file.
+#### 1. Create a CSR file.
 
 In the Applications folder on your Mac, open the Utilities folder and launch Keychain Access.
 
@@ -17,19 +17,19 @@ Within the Keychain Access drop down menu, select Keychain Access > Certificate 
 	- In the "Request is" group, select the "Saved to disk" option.
 - Click Continue within Keychain Access to complete the CSR generating process.
 
-### 2. Apply aps.cer file
+#### 2. Apply aps.cer file
 
 - Upload the CertificateSigningRequest.certSigningRequest file generated as describe in Step 1 to https://developer.apple.com/ios/manage/certificates/team/index.action.
 - Apply a file named aps.cer for your application
 
-### 3. Export key.p12 file
+#### 3. Export key.p12 file
 
 - Click the aps.cer file and find it in the Keychain Access application.
 - Select the private key, the name of the private key is same as the **Common Name field** when you created the CSR file.
 - Export the priviate key as a key.p12 file.
 - Remember the password of this key.p12 file.
 
-### 4. Generate aps.p12 file
+#### 4. Generate aps.p12 file
 
 - Put the aps.cer and key.p12 files into a same folder.
 - Generate aps.pem file
@@ -61,11 +61,11 @@ Verifying - Enter Export Password:$
 ```
 
 
-## API Document
+### API Document
 
 This is the REST API document of Grouper Web service. Grouper is a framwework for creating mobile applications based on data syncrhonization using multiple unstrusted servers.
 
-### 1. Group
+#### 1. Group
 
 (1)`group/register`
    
@@ -135,7 +135,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
       - ErrorMasterKey(901): Master key is wrong.
       - ErrorGroupInitialized(1041): This group has been initialized before.
 
-### 2. User
+#### 2. User
 
 (1)`user/add`
 
@@ -188,7 +188,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
       - ErrorAccessKey(903): Master key or access key is wrong.
       - ErrorPushNoPrivilege(2051): This user has no privilege to push remote notification to the receiver.
    
-### 3. Transfer
+#### 3. Transfer
 
 (1)`transfer/put`
 
