@@ -69,13 +69,13 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 
 (1)`group/register`
    
-   - Register a new group in this untrusted server.
+   - Register a new group in an untrusted server.
    - method: POST
    - param: 
       - id(String): group id
       - name(String): group name
    - return:
-      - masterkey(String): master key for group creator
+      - masterkey(String): master key for the group owner
    - error:
       - ErrorGroupExsit(1011): Group id is exist in this server.
       - ErrorGroupRegister(1012): Register group error.
@@ -85,7 +85,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - Get group information.
    - method: GET
    - header:
-      - key(String): master key of this group or access key of group member
+      - key(String): master key of this group or access key of the group member
    - return:
       - group(GroupBean): group information
          - id(String): group id
@@ -122,7 +122,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 
 (4)`group/init`
 
-   - Initialize a group by submitting the number of servers and recover threshold.
+   - Initialize a group by submitting the parameters in the extended secret sharing scheme f(k, n, s) and the TTL.
    - method: POST
    - param:
       - server(int): the number of servers, the parameter n in f(k, n, s)
@@ -139,7 +139,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 
 (1)`user/add`
 
-   - Add a new user in this untrusted server.
+   - Add a new user in the untrusted server by the group owner.
    - method: POST
    - header:
       - key(String): master key
@@ -154,19 +154,19 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 
 (2)`user/state`
 
-   - Check server state.
+   - Check server state.
    - method: GET
    - header:
-      - key(String): access key of group member
+      - key(String): access key of the group member
    - return:
       - ok(boolean): user can access this user or not
 
 (3)`user/deviceToken`
 
-   - Update device's device token of a user.
+   - Update the device token of the device by a group member.
    - method: POST
    - header:
-      - key(String): access key of group member
+      - key(String): access key of the group member
    - param: 
       - deviceToken(String): device token from APNs server
    - return:
@@ -174,7 +174,7 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 
 (4)`user/notify`
 
-   - Notify a receiver with a message.
+   - Send a remote notification to a group member.
    - method: POST
    - header:
       - key(String): access key of group member
@@ -192,10 +192,10 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 
 (1)`transfer/put`
 
-   - Put a share to transfer table
-   - method: POST
+   - Upload a share to the untrusted server.
+   - method: POST
    - header:
-      - key(String): access key of group member
+      - key(String): access key of the group member
    - param:
       - shares(String): JSON array of share, it should be such format:
          - share(String): the content of a share
@@ -214,24 +214,24 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 ```
       
    - return:
-      - success(int): the number of shares which are save successfully
+      - success(int): the number of shares which are saved in the server successfully
    -  error:
       - ErrorAccessKey(902): Access key is wrong.
 
 (2)`transfer/list`
 
-   - Put a share to transfer table
+   - Get the list of share IDs for a group member.
    - method: GET
    - header:
-      - key(String): access key of group member
+      - key(String): access key of the group member
    - return:
-      - shares(List\<String>): id of shares
+      - shares(List\<String>): share IDs that this group member has privilege to download
    -  error:
       - ErrorAccessKey(902): Access key is wrong.
 
 (3)`transfer/get`
 
-   - Get a share list by access key, only get share for this user or all users.
+   - Get the content of shares by the list of share IDs.
    - method: GET
    - header:
       - key(String): access key of group member
@@ -278,11 +278,11 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
 
 (4)`transfer/confirm`
 
-   - Send messageIds and get messageIds which are not existed in this untrusted server.
+   - Confirm whether the shares are existed in an untrusted server. 
    - method: POST
    - header:
-      - key(String): access key of group member
+      - key(String): access key of the group member
    - param:
-      - messageId(List\<String>): messageId list, submit by messageId=xxx&messageId=xxx&messageId=xxx
+      - messageId(List\<String>): array of message IDs, submit by messageId=xxx&messageId=xxx&messageId=xxx
    - return:
-      - messageIds(List\<String>): messageIds which are not existed in this untrusted server
+      - messageIds(List\<String>): array of message IDs which are not existed in this untrusted server
