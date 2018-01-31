@@ -281,8 +281,8 @@ This is the REST API document of Grouper Web service. Grouper is a framwework fo
    - Confirm whether the shares are existed in an untrusted server. 
    - method: POST
    - header:
-      - key(String): access key of the group member
+      - key(String): access key of the group member
    - param:
-      - messageId(List\<String>): array of message IDs, submit by messageId=xxx&messageId=xxx&messageId=xxx
+      - messageId(List\<String>): array of message IDs, submit by messageId=xxx&messageId=xxx&messageId=xxx
    - return:
       - messageIds(List\<String>): array of message IDs which are not existed in this untrusted server
